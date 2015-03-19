@@ -1,0 +1,103 @@
+<html>
+<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2,
+minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/Bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
+    <style>
+
+        .listview-grid img {
+            max-width: 95%;
+            min-width: 95%;
+            padding: 5px;
+        }
+
+        .ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child, .ui-listview .ui-li-has-thumb .ui-li-thumb {
+            position: absolute;
+            left: 0;
+            top: 0;
+            max-height: 6em;
+            max-width: 6em;
+        }
+/*
+        .ui-listview>li {
+            display: block;
+            position: relative;
+            overflow: visible;
+        }
+
+        .ui-page-theme-a .ui-btn, html .ui-bar-a .ui-btn, html .ui-body-a .ui-btn, html body .ui-group-theme-a .ui-btn, html head + body .ui-btn.ui-btn-a, .ui-page-theme-a .ui-btn:visited, html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-group-theme-a .ui-btn:visited, html head + body .ui-btn.ui-btn-a:visited {
+
+        }*/
+
+    </style>
+</head>
+
+
+<body>
+
+<div data-role="page" id="pagina-inicial">
+    <div data-role="content">
+        <ul data-role="listview" id="lista-inicial">
+            <li><a href="#pagina-inicial">Inicial</a></li>
+            <li><a href="#pagina-lista-de-ordenes">Lista de Ordenes</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div data-role="page" id="pagina-lista-de-ordenes">
+
+    <div data-role="header" data-theme="d">
+
+        <a href="#pagina-inicial" data-role="button" data-theme="d" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1>Ordenes</h1>
+        <a href="#pagina-rejilla-de-ordenes" data-role="button" data-theme="d" data-icon="grid" data-iconpos="right">&nbsp;&nbsp;</a>
+
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" id="lista-de-ordenes">
+        </ul>
+    </div>
+
+</div>
+
+
+<div data-role="page" id="pagina-rejilla-de-ordenes" class="listview-grid">
+
+    <div data-role="header" data-theme="d">
+        <a href="#pagina-inicial" data-role="button" data-theme="d" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1>Ordenes</h1>
+        <a href="#pagina-lista-de-ordenes" data-role="button" data-theme="d" data-icon="bars" data-iconpos="right">&nbsp;&nbsp;</a>
+
+    </div>
+
+    <div data-role="content">
+        <fieldset class="ui-grid-a" id="rejilla-de-ordenes">
+
+        </fieldset>
+    </div>
+
+</div>
+
+
+<div data-role="page" id="pagina-lista-de-familias">
+    <div data-role="content">
+        <ul data-role="list-view" id="lista-de-familias">
+
+        </ul>
+    </div>
+</div>
+
+
+</body>
+<footer>
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script data-main="js/main.js" src="js/require.js"></script>
+
+
+</footer>
+
+</html>
