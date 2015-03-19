@@ -71,7 +71,7 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
 
                 // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
             } else {
-                _grid = _grid + '<div class="ui-block-b"><a href="#"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
 
                 // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
             }
