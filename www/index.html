@@ -7,9 +7,9 @@
     <style>
 
         .listview-grid img {
-            max-width: 95%;
-            min-width: 95%;
-            padding: 5px;
+            max-width: 200%;
+            min-width: 200%;
+            padding: 2px;
         }
 /*
         .ui-listview .ui-li-has-thumb>img:first-child, .ui-listview .ui-li-has-thumb>.ui-btn>img:first-child, .ui-listview .ui-li-has-thumb .ui-li-thumb {
@@ -50,9 +50,9 @@
 
     <div data-role="header" data-theme="d">
 
-        <a href="#pagina-inicial" data-role="button" data-theme="d" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+        <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
         <h1>Ordenes</h1>
-        <a href="#pagina-rejilla-de-ordenes" data-role="button" data-theme="d" data-icon="grid" data-iconpos="right">&nbsp;&nbsp;</a>
+        <a href="#pagina-rejilla-de-ordenes" data-role="button" data-icon="grid" data-iconpos="right">&nbsp;&nbsp;</a>
 
     </div>
 
@@ -67,9 +67,9 @@
 <div data-role="page" id="pagina-rejilla-de-ordenes" class="listview-grid">
 
     <div data-role="header" data-theme="d">
-        <a href="#pagina-inicial" data-role="button" data-theme="d" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+        <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
         <h1>Ordenes</h1>
-        <a href="#pagina-lista-de-ordenes" data-role="button" data-theme="d" data-icon="bars" data-iconpos="right">&nbsp;&nbsp;</a>
+        <a href="#pagina-lista-de-ordenes" data-role="button" data-icon="bars" data-iconpos="right">&nbsp;&nbsp;</a>
 
     </div>
 
@@ -83,6 +83,12 @@
 
 
 <div data-role="page" id="pagina-lista-de-familias">
+
+    <div data-role="header" data-theme="d">
+        <a href="#" data-role="button" data-rel="back" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1 id="encabezado-pagina-lista-de-familias">&nbsp;&nbsp;</h1>
+    </div>
+
     <div data-role="content">
         <ul data-role="list-view" id="lista-de-familias">
 
@@ -91,12 +97,18 @@
 </div>
 
 
+<div data-role="page" id="pagina-de-familia">
+    <div data-role="content">
+
+    </div>
+</div>
+
+
+
 </body>
 <footer>
     <script type="text/javascript" src="phonegap.js"></script>
     <script data-main="js/main.js" src="js/require.js"></script>
-
-
 </footer>
 
 </html>

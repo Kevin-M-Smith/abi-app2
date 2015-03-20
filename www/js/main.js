@@ -49,13 +49,21 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
         var li = "";
         $.each(ordenes, function(i, _orden) {
             li += '<li><a href="#" id="' + i +
-            '" class="info-go"><img src="img/icones/' +
-            _orden.nombre + '.png"><h2>' + _orden.nombre +
+    		  '" class="info-go"><h2>' + _orden.nombre + 
+    //        '" class="info-go"><img src="img/icones/' +
+    //        _orden.nombre + '.png"><h2>' + _orden.nombre +
             '</h2><p style="white-space:normal;">' +
             _get_familias(_orden) + '</p></a></li>';
         });
         $("#lista-de-ordenes").append(li).promise().done(
             function() {
+
+                $(this).on("click", ".info-go", function (e) {
+                    e.preventDefault();
+                    $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
+                    $.mobile.changePage("#pagina-lista-de-familias");
+                });
+
                 $(this).listview('refresh');
             });
     });
@@ -77,11 +85,65 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
             }
         });
 
-
-
         $("#rejilla-de-ordenes").append(_grid).promise().done(
            function() {
         //        $(this).listview('refresh');
             });
     });
+
+
+    $(document).on("pagecreate", "#pagina-lista-de-familias", function() {
+       $("#lista-de-familias").listview()
+    });
+
+    $(document).on("pagebeforeshow", "#pagina-lista-de-familias", function () {
+        //get from data - you put this here when the "a" wa clicked in the previous page
+        var orden = $(this).data("orden");
+
+        var li = "";
+
+        $("#encabezado-pagina-lista-de-familias").text(orden.nombre)
+
+        $.each(orden['familias'], function(i, _familia){
+            li += '<li><a href="#" id="' + i + '">' + _familia.nombre + '</a></li>'
+        });
+
+        $("#lista-de-familias").html(li).promise().done(
+            function() {
+                $(this).listview('refresh');
+            });
+
+        //$.each(orden['familias'], function(i, _familia) {
+        //    li += '<li><a href="#" id="' + i +
+        //        '" class="info-go"><h2>' + _familia.nombre +
+        //        '<h2></a></li>'
+        //});
+        //
+        //$("#lista-de-familias").append(li).promise().done(
+        //    function() {
+        //       $(this).listview('refresh')
+        //    });
+
+
+        //$.each(__orden['familias'], function(i, _familia) {
+        //    li += '<li><a href="#" id="' + i +
+        //    '" class="info-go"><h2>' + _familia.nombre +
+        //        //        '" class="info-go"><img src="img/icones/' +
+        //        //        _orden.nombre + '.png"><h2>' + _orden.nombre +
+        //    '</h2><p style="white-space:normal;">' +
+        //    _get_familias(_familia) + '</p></a></li>';
+        //});
+        //$("#lista-de-familias").append(li).promise().done(
+        //    function() {
+        //        $(this).listview('refresh');
+        //    });
+
+    });
+
+
+
+
 });
+
+
+
