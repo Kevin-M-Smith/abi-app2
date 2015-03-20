@@ -57,11 +57,18 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
         });
         $("#lista-de-ordenes").append(li).promise().done(
             function() {
-                console.log(this)
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
-                    $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
-                    $.mobile.changePage("#pagina-lista-de-familias");
+
+                    if(ordenes[this.id]['familias'].length == 1){
+                        $("#pagina-de-familia").data("familia", ordenes[this.id]['familias'][0]);
+                        $.mobile.changePage("#pagina-de-familia");
+
+                    } else {
+                        $("#pagina-rejilla-de-familias").data("orden", ordenes[this.id]);
+                        $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
+                        $.mobile.changePage("#pagina-lista-de-familias");
+                    }
                 });
 
                 $(this).listview('refresh');
@@ -87,14 +94,20 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
 
         $("#rejilla-de-ordenes").append(_grid).promise().done(
             function() {
-                console.log(this)
                 $(this).on("click", ".info-go", function (e) {
-                    e.preventDefault();
-                    $("#pagina-rejilla-de-familias").data("orden", ordenes[this.id]);
-                    $.mobile.changePage("#pagina-rejilla-de-familias");
+                    if (ordenes[this.id]['familias'].length == 1) {
+                        $("#pagina-de-familia").data("familia", ordenes[this.id]['familias'][0]);
+                        $.mobile.changePage("#pagina-de-familia");
+                    } else {
+                        e.preventDefault();
+                        $("#pagina-rejilla-de-familias").data("orden", ordenes[this.id]);
+                        $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
+                        $.mobile.changePage("#pagina-rejilla-de-familias");
+                    }
                 });
 
             });
+
     });
 
     /***************************************
@@ -107,17 +120,25 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
     $(document).on("pagebeforeshow", "#pagina-lista-de-familias", function () {
         //get from data - you put this here when the "a" wa clicked in the previous page
         var orden = $(this).data("orden");
+        var familias = orden['familias'];
 
         var li = "";
 
         $("#encabezado-pagina-lista-de-familias").text(orden.nombre)
 
         $.each(orden['familias'], function(i, _familia){
-            li += '<li><a href="#" id="' + i + '">' + _familia.nombre + '</a></li>'
+            li += '<li><a href="#" class="info-go" id="' + i + '">' + _familia.nombre + '</a></li>'
         });
 
         $("#lista-de-familias").html(li).promise().done(
             function() {
+
+                $(this).on("click", ".info-go", function (e) {
+                    e.preventDefault();
+                    $("#pagina-de-familia").data("familia", familias[this.id]);
+                    $.mobile.changePage("#pagina-de-familia");
+                });
+
                 $(this).listview('refresh');
             });
 
@@ -130,26 +151,42 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
     $(document).on("pagebeforeshow", "#pagina-rejilla-de-familias", function () {
         //get from data - you put this here when the "a" wa clicked in the previous page
         var orden = $(this).data("orden");
-
+        var familias = orden['familias'];
         var _grid = "";
 
         $("#encabezado-pagina-rejilla-de-familias").text(orden.nombre)
 
         $.each(orden['familias'], function(i, _familia){
             if(i % 2 == 0 ){
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><h2>' + _familia.nombre + '</h2><img src="' + _familia.fotos[0] + '"></a><hr></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
 
                 // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
             } else {
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><h2>' + _familia.nombre + '</h2><img src="' + _familia.fotos[0] + '"></a><hr></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
                 // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
             }
         });
 
         $("#rejilla-de-familias").html(_grid).promise().done(
             function() {
+                $(this).on("click", ".info-go", function (e) {
+                    e.preventDefault();
+                    $("#pagina-de-familia").data("familia", familias[this.id]);
+                    $.mobile.changePage("#pagina-de-familia");
+                });
 
             });
+
+    });
+
+    /***************************************
+     *	preparar página 'rejilla-de-familias'
+     ***************************************/
+
+    $(document).on("pagebeforeshow", "#pagina-de-familia", function() {
+       var ___familia = $(this).data("familia")
+
+        $("#encabezado-pagina-de-familia").text(___familia.nombre + ' (' + ___familia.puntos + ')');
 
     });
 
