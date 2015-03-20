@@ -49,9 +49,9 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
         var li = "";
         $.each(ordenes, function(i, _orden) {
             li += '<li><a href="#" id="' + i +
-    		  '" class="info-go"><h2>' + _orden.nombre + 
-    //        '" class="info-go"><img src="img/icones/' +
-    //        _orden.nombre + '.png"><h2>' + _orden.nombre +
+            '" class="info-go"><h2>' + _orden.nombre +
+         //   '" class="info-go"><img src="img/icones/' +
+         //   _orden.nombre + '.png"><h2>' + _orden.nombre +
             '</h2><p style="white-space:normal;">' +
             _get_familias(_orden) + '</p></a></li>';
         });
@@ -137,11 +137,11 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
 
         $.each(orden['familias'], function(i, _familia){
             if(i % 2 == 0 ){
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"></a></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"><br><h2>' + _familia.nombre + '</h2></a><hr></div>'
 
                 // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
             } else {
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"></a></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"><br><h2>' + _familia.nombre + '</h2></a><hr></div>'
                 // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
             }
         });
