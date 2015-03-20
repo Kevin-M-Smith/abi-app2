@@ -57,7 +57,7 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
         });
         $("#lista-de-ordenes").append(li).promise().done(
             function() {
-
+                console.log(this)
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
                     $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
@@ -75,11 +75,11 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
         var _grid = '';
         $.each(ordenes, function(i, _orden) {
             if(i % 2 == 0 ){
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
 
                 // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
             } else {
-                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><img src="img/icones/' + _orden.nombre + '.png"></a></div>'
 
                 // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
             }
@@ -87,11 +87,19 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
 
         $("#rejilla-de-ordenes").append(_grid).promise().done(
            function() {
-        //        $(this).listview('refresh');
-            });
+               console.log(this)
+               $(this).on("click", ".info-go", function (e) {
+                   e.preventDefault();
+                   $("#pagina-rejilla-de-familias").data("orden", ordenes[this.id]);
+                   $.mobile.changePage("#pagina-rejilla-de-familias");
+               });
+
+           });
     });
 
-
+    /***************************************
+     *	preparar página 'lista-de-familias'
+     ***************************************/
     $(document).on("pagecreate", "#pagina-lista-de-familias", function() {
        $("#lista-de-familias").listview()
     });
@@ -113,30 +121,35 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
                 $(this).listview('refresh');
             });
 
-        //$.each(orden['familias'], function(i, _familia) {
-        //    li += '<li><a href="#" id="' + i +
-        //        '" class="info-go"><h2>' + _familia.nombre +
-        //        '<h2></a></li>'
-        //});
-        //
-        //$("#lista-de-familias").append(li).promise().done(
-        //    function() {
-        //       $(this).listview('refresh')
-        //    });
+    });
 
+    /***************************************
+     *	preparar página 'rejilla-de-familias'
+     ***************************************/
 
-        //$.each(__orden['familias'], function(i, _familia) {
-        //    li += '<li><a href="#" id="' + i +
-        //    '" class="info-go"><h2>' + _familia.nombre +
-        //        //        '" class="info-go"><img src="img/icones/' +
-        //        //        _orden.nombre + '.png"><h2>' + _orden.nombre +
-        //    '</h2><p style="white-space:normal;">' +
-        //    _get_familias(_familia) + '</p></a></li>';
-        //});
-        //$("#lista-de-familias").append(li).promise().done(
-        //    function() {
-        //        $(this).listview('refresh');
-        //    });
+    $(document).on("pagebeforeshow", "#pagina-rejilla-de-familias", function () {
+        //get from data - you put this here when the "a" wa clicked in the previous page
+        var orden = $(this).data("orden");
+
+        var _grid = "";
+
+        $("#encabezado-pagina-rejilla-de-familias").text(orden.nombre)
+
+        $.each(orden['familias'], function(i, _familia){
+            if(i % 2 == 0 ){
+                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"></a></div>'
+
+                // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
+            } else {
+                _grid = _grid + '<div class="ui-block-a"><a href="#"><img src="' + _familia.fotos[0] + '"></a></div>'
+                // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
+            }
+        });
+
+        $("#rejilla-de-familias").html(_grid).promise().done(
+            function() {
+
+            });
 
     });
 
