@@ -158,21 +158,24 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
 
         $.each(orden['familias'], function(i, _familia){
             if(i % 2 == 0 ){
-                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
 
                 // _grid = _grid + '<div class="ui-block-a">' + _orden.nombre + '</div>'
             } else {
-                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><h3>' + _familia.nombre + '</h3><img src="' + _familia.fotos[0] + '"></a><hr></div>'
                 // _grid = _grid + '<div class="ui-block-b">' + _orden.nombre + '</div>'
             }
         });
 
         $("#rejilla-de-familias").html(_grid).promise().done(
             function() {
+
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
+                    console.log(this);
                     $("#pagina-de-familia").data("familia", familias[this.id]);
                     $.mobile.changePage("#pagina-de-familia");
+
                 });
 
             });
@@ -180,13 +183,49 @@ require(['manifiesto', 'jquery', 'jquerymobile'], function(manifiesto, $, jqm) {
     });
 
     /***************************************
-     *	preparar página 'rejilla-de-familias'
+     *	preparar página 'rejilla-de-familia'
      ***************************************/
 
     $(document).on("pagebeforeshow", "#pagina-de-familia", function() {
-       var ___familia = $(this).data("familia")
+       var familia = $(this).data("familia")
+        var fotos = familia['fotos']
+        console.log(fotos)
+        var _grid = "";
 
-        $("#encabezado-pagina-de-familia").text(___familia.nombre + ' (' + ___familia.puntos + ')');
+
+        $("#encabezado-pagina-de-familia").text(familia.nombre + ' (' + familia.puntos + ')');
+
+        $.each(familia['fotos'], function(i, foto){
+            if(i % 2 == 0 ){
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><img src="' + foto + '"></a><hr></div>'
+            } else {
+                _grid = _grid + '<div class="ui-block-a"><a href="#" class="info-go" id="' + i + '"><img src="' + foto + '"></a><hr></div>'
+            }
+        });
+
+        $("#rejilla-de-familia").html(_grid).promise().done(
+            function() {
+
+                $(this).on("click", ".info-go", function (e) {
+                    e.preventDefault();
+                    $("#pagina-foto").data("foto", fotos[this.id]);
+                    $("#pagina-foto").data("nombre", familia['nombre']);
+                    $.mobile.changePage("#pagina-foto");
+
+                });
+
+            });
+
+    });
+
+
+    $(document).on("pagebeforeshow", "#pagina-foto", function() {
+    var foto = $(this).data("foto")
+    var nombre = $(this).data("nombre")
+        console.log(foto)
+
+        $("#encabezado-pagina-foto").text(nombre)
+        $("#foto-grande").attr('src', foto)
 
     });
 
