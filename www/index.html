@@ -33,8 +33,17 @@
             padding: 0 !important;
         }
 
+        .ui-map {
+            position: absolute;
+            top: 200px;
+            right: 0;
+            bottom: 0px;
+            left: 0;
+            padding: 0 !important;
+        }
+
         #mapa {
-            height: 100%;
+            height: 95%;
         }
 
         .leaflet-div-icon {
@@ -166,13 +175,34 @@
 
 <div data-role="page" id="pagina-mapa">
     <div data-role="header" data-theme="d">
-        <a href="#" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <a href="#pagina-inicial" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
         <h3>A map!</h3>
     </div>
 
     <div data-role="content">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <input type='radio' value='gps' id='loc-gps' name='mode'>
+            <label for='loc-gps'>GPS</label>
+            <input type='radio' value='interactive' id='loc-interactive' name='mode'>
+            <label for='loc-interactive'>Interactive</label>
+            <input type='radio' value='manual' id='loc-manual' name='mode'>
+            <label for='loc-manual'>Manual</label>
+        </fieldset>
         <div id="mapa" class="ui-map"></div>
-
+        <div class='ui-grid-b'>
+            <div class='ui-block-a ui-content'>
+                Latitude
+                <input name="latitude" type="number" step="0.0001">
+            </div>
+            <div class='ui-block-b ui-content'>
+                Longitude
+                <input name="longitude" type="number" step="0.0001">
+            </div>
+            <div class='ui-block-c'>
+                Accuracy (m)
+                <input name="accuracy" type="number" step="0.0001">
+            </div>
+        </div>
     </div>
 </div>
 

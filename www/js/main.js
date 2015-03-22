@@ -1,8 +1,9 @@
 require.config({
     paths: {
         'jquery': 'jquery-2.1.3.min',
-        'jquerymobile': 'jquery.mobile-1.4.5.min',
+        'jquery.mobile': 'jquery.mobile-1.4.5.min',
         'leaflet': 'leaflet-0.7.3',
+        'wq/locate': 'wq/locate'
     }
 });
 
@@ -11,7 +12,7 @@ require(['app'], function(app) {
 });
 
 
-require(['manifiesto', 'jquery', 'jquerymobile', 'leaflet'], function(manifiesto, $, jqm, L) {
+require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], function(manifiesto, $, jqm, L, locate) {
     /***************************************
      *	crear listas de órdenes y familias
      ***************************************/
@@ -227,43 +228,9 @@ require(['manifiesto', 'jquery', 'jquerymobile', 'leaflet'], function(manifiesto
     });
 
 
-
-
     $(document).on("pagecreate", "#pagina-mapa", function(e){
 
-
-        L.NumberedDivIcon = L.Icon.extend({
-            options: {
-                iconUrl: 'img/marcadores/negro.png',
-                number: '',
-                shadowUrl: null,
-                iconSize: new L.Point(32, 32),
-                iconAnchor: new L.Point(16, 32),
-                //popupAnchor: new L.Point(0, -33),
-                /*
-                 iconAnchor: (Point)
-                 popupAnchor: (Point)
-                 */
-                className: 'leaflet-abi-icon'
-            },
-
-            createIcon: function () {
-                var div = document.createElement('div');
-                var img = this._createImg(this.options['iconUrl']);
-                var numdiv = document.createElement('div');
-                numdiv.setAttribute ( "class", "number" );
-                numdiv.innerHTML = this.options['number'] || '';
-                div.appendChild ( img );
-                div.appendChild ( numdiv );
-                this._setIconStyles(div, 'icon');
-                return div;
-            },
-
-            //you could change this to add a shadow like in the normal marker if you really wanted
-            createShadow: function () {
-                return null;
-            }
-        });
+        L.Icon.Default.imagePath = 'css/images';
 
         var map = L.map('mapa');
 
@@ -271,18 +238,42 @@ require(['manifiesto', 'jquery', 'jquerymobile', 'leaflet'], function(manifiesto
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        map.on('locationfound', function(e){
-            var marker = new L.Marker(e.latlng, {
-                icon:	new L.NumberedDivIcon({number: '1'})
-            });
-            marker.addTo(map)
-        });
 
-        map.on('locationerror', function(e){
-            alert(e.message);
-        });
+        var fields = {
+            'toggle': $('input[name=mode]'),
+            'latitude': $('input[name=latitude]'),
+            'longitude': $('input[name=longitude]'),
+            'accuracy': $('input[name=accuracy]')
+        };
 
-        map.locate({setView: true, maxZoom: 18});
+        var config = {
+            // Custom handler for location updates
+            'onUpdate': function(loc, accuracy) {
+                if (accuracy > 1000) {
+                    $('#message').html(
+                        "Note: your location accuracy appears to be off by more than 1km."
+                    );
+                } else {
+                    $('#message').html("");
+                }
+            }
+        }
+
+        var locator = locate.locator(map, fields, config);
+
+
+        //map.on('locationfound', function(e){
+        //    var marker = new L.Marker(e.latlng, {
+        //        icon:	new L.NumberedDivIcon({number: '1'})
+        //    });
+        //    marker.addTo(map)
+        //});
+        //
+        //map.on('locationerror', function(e){
+        //    alert(e.message);
+        //});
+        //
+        //map.locate({setView: true, maxZoom: 18});
 
     });
 
