@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" href="css/Bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/leaflet-0.7.3.css"/>
     <style>
 
         .listview-grid img {
@@ -23,6 +24,32 @@
             color: #111111;
         }
 
+        .ui-map {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 40px;
+            left: 0;
+            padding: 0 !important;
+        }
+
+        #mapa {
+            height: 100%;
+        }
+
+        .leaflet-div-icon {
+            background: transparent;
+            border: none;
+        }
+
+        .leaflet-marker-icon .number{
+            position: relative;
+            top: -30px;
+            font-size: 12px;
+            width: 32px;
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -34,6 +61,7 @@
         <ul data-role="listview" id="lista-inicial">
             <li><a href="#pagina-inicial">Inicial</a></li>
             <li><a href="#pagina-lista-de-ordenes">Lista de Ordenes</a></li>
+            <li><a href="#pagina-mapa">Map</a></li>
         </ul>
     </div>
 </div>
@@ -134,6 +162,18 @@
     </div>
 
     <img id="foto-grande" width="100%" src="">
+</div>
+
+<div data-role="page" id="pagina-mapa">
+    <div data-role="header" data-theme="d">
+        <a href="#" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h3>A map!</h3>
+    </div>
+
+    <div data-role="content">
+        <div id="mapa" class="ui-map"></div>
+
+    </div>
 </div>
 
 
