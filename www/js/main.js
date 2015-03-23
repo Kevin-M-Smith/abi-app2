@@ -190,12 +190,32 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         var _grid = "";
 
         $("#encabezado-pagina-de-familia").text(familia.nombre + ' (' + familia.puntos + ')');
-        $("#boton-atras-pagina-de-familia").attr('href', pagina_anterior)
+        $("#boton-atras-pagina-de-familia").attr('href', pagina_anterior);
 
         $.each(familia['fotos'], function(i, foto){
                 _grid += '<div class="ui-block-a"><a href="#" class="info-go" id="'
                 + i + '"><img src="'
                 + foto + '"></a><hr></div>';
+        });
+
+        $("#boton-pagina-de-familia-entregar").off()
+        $("#boton-pagina-de-familia-entregar").one("click", function (e) {
+            e.preventDefault();
+            $("#pagina-de-encuesta-lista-de-familias").append('<li><a href="#demo-mail"><p class="nombre-de-familia">'
+            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
+
+            console.log(familia.nombre)
+        });
+
+        $("#boton-pagina-de-familia-entregar-inferior").off()
+        $("#boton-pagina-de-familia-entregar-inferior").one("click", function (e) {
+            e.preventDefault();
+            $("#pagina-de-encuesta-lista-de-familias").append('<li><a href="#demo-mail"><p class="nombre-de-familia">'
+            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
+
+            console.log(familia.nombre)
         });
 
 
@@ -234,7 +254,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         var map = L.map('mapa');
 
-        L.tileLayer('img/mapas/medford/{z}/{x}/{y}.jpg', {
+        //L.tileLayer('img/mapas/medford/{z}/{x}/{y}.jpg', {
+        //    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        //}).addTo(map);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
@@ -277,6 +301,66 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
     });
 
+
+    /***************************************
+     *    pagina-de-encuesta-nueva-foto
+     ***************************************/
+
+    $(document).on("pagecreate", "#pagina-de-encuesta-nueva-foto", function (e) {
+        $("#boton-pagina-de-encuesta-nueva-foto-entregar").one("click", function (e) {
+            $("#boton-pagina-de-encuesta-nueva-foto").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-foto-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        });
+    });
+
+
+    /***************************************
+     *    pagina-de-encuesta-nueva-fecha-y-hora
+     ***************************************/
+
+    $(document).on("pagecreate", "#pagina-de-encuesta-nueva-fecha-y-hora", function (e) {
+        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar").on("click", function (e) {
+            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        });
+    });
+
+
+    /***************************************
+     *    pagina-de-encuesta-familias
+     ***************************************/
+
+    $(document).on("pagecreate", "#pagina-de-encuesta-nueva-familias", function (e) {
+
+        function confirmAndDelete(listitem) {
+            listitem.addClass("ui-btn-down-d");
+            $("#confirm .nombre-de-familia").remove();
+            listitem.find(".nombre-de-familia").clone().insertAfter("#question");
+            $("#confirm").popup("open");
+            $("#confirm #yes").on("click", function () {
+                listitem.remove();
+                $("#pagina-de-encuesta-lista-de-familias").listview("refresh");
+            });
+
+            $("#confirm #cancel").on("click", function () {
+                listitem.removeClass("ui-btn-down-d");
+                $("#confirm #yes").off();
+            });
+        }
+
+        $(document).on("click", "#pagina-de-encuesta-lista-de-familias li", function (e) {
+            confirmAndDelete($(this));
+        });
+
+
+        $("#boton-pagina-de-encuesta-nueva-familias-entregar").one("click", function (e) {
+            $("#boton-pagina-de-encuesta-nueva-familias").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-familias-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        });
+    });
 
 
 

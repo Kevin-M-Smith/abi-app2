@@ -1,6 +1,7 @@
 <html>
 <head>
 	<meta name="viewport"  content="width=device-width, height=device-height, initial-scale=1.5, user-scalable=1" />
+    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" href="css/Bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css" />
@@ -24,23 +25,23 @@
             color: #111111;
         }
 
-        .ui-map {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            bottom: 40px;
-            left: 0;
-            padding: 0 !important;
-        }
+        /*.ui-map {*/
+        /*position: absolute;*/
+        /*top: 40px;*/
+        /*right: 0;*/
+        /*bottom: 40px;*/
+        /*left: 0;*/
+        /*padding: 0 !important;*/
+        /*}*/
 
-        .ui-map {
-            position: absolute;
-            top: 200px;
-            right: 0;
-            bottom: 0px;
-            left: 0;
-            padding: 0 !important;
-        }
+        /*.ui-map {*/
+        /*position: absolute;*/
+        /*top: 250px;*/
+        /*right: 20;*/
+        /*bottom: 0px;*/
+        /*left: 20;*/
+        /*padding: 0 !important;*/
+        /*}*/
 
         #mapa {
             height: 95%;
@@ -59,6 +60,40 @@
             text-align: center;
         }
 
+        /* Custom styling for the popup */
+        #confirm {
+            border: 1px solid;
+            border-color: #044062; /* Fallback for older browsers */
+            border-color: rgba(4, 64, 98, .4);
+            background: #456f9a; /* Fallback for older browsers */
+            background: rgba(69, 111, 154, .8);
+            -moz-box-shadow: 0 2px 6px rgba(69, 111, 154, .5), inset 0 1px rgba(255, 255, 255, .3), inset 0 6px rgba(255, 255, 255, .1), inset 0 10px 20px rgba(255, 255, 255, .25), inset 0 -15px 30px rgba(69, 111, 154, .3);
+            -webkit-box-shadow: 0 2px 6px rgba(69, 111, 154, .5), inset 0 1px rgba(255, 255, 255, .3), inset 0 6px rgba(255, 255, 255, .1), inset 0 10px 20px rgba(255, 255, 255, .25), inset 0 -15px 30px rgba(69, 111, 154, .3);
+            box-shadow: 0 2px 6px rgba(69, 111, 154, .5), inset 0 1px rgba(255, 255, 255, .3), inset 0 6px rgba(255, 255, 255, .1), inset 0 10px 20px rgba(255, 255, 255, .25), inset 0 -15px 30px rgba(69, 111, 154, .3);
+            max-width: 250px;
+        }
+
+        #confirm p {
+            color: #fff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .6);
+            margin-bottom: .75em;
+        }
+
+        /* Make the buttons inherit the popup border-radius (.ui-corner-all) */
+        #confirm div, #confirm .ui-btn-corner-all {
+            -webkit-border-radius: inherit;
+            border-radius: inherit;
+        }
+
+        #confirm #cancel {
+            background-image: none;
+        }
+
+        #confirm .topic.ui-li-desc {
+            font-size: inherit; /* The cloned topic will have class ui-li-desc so we negate the font-size settings of this class */
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -66,11 +101,24 @@
 <body>
 
 <div data-role="page" id="pagina-inicial">
+    <div data-role="header" data-theme="a">
+        <h1>ABI</h1>
+    </div>
+
     <div data-role="content">
         <ul data-role="listview" id="lista-inicial">
-            <li><a href="#pagina-inicial">Inicial</a></li>
-            <li><a href="#pagina-lista-de-ordenes">Lista de Ordenes</a></li>
-            <li><a href="#pagina-mapa">Map</a></li>
+            <li><a href="#pagina-mapa"><img src="img/marcadores/mapa.png">
+
+                <p style="white-space:normal;">Buscar en la calidad del agua cerca.</p></a></li>
+            <li><a href="#pagina-de-encuesta-nueva"><img src="img/marcadores/insecto.png">
+
+                <p style="white-space:normal;">Tome una nueva encuesta.</p></a></li>
+            <li><a href="#pagina-de-ayuda"><img class="ui-li-icon" src="img/marcadores/ayuda.png">
+
+                <p style="white-space:normal;">Obtenga ayuda con esta aplicación.</p></a></li>
+            <li><a href="#pagina-de-configuracion"><img class="ui-li-icon" src="img/marcadores/configuracion.png">
+
+                <p style="white-space:normal;"> Modifique la configuración.</p></a></li>
         </ul>
     </div>
 </div>
@@ -149,7 +197,8 @@
     <div data-role="header" data-theme="d">
         <a href="#" data-role="button" id="boton-atras-pagina-de-familia" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
         <h1 id="encabezado-pagina-de-familia">&nbsp;&nbsp;</h1>
-        <a href="#" data-role="button" data-icon="check" data-iconpos="right">&nbsp;&nbsp;</a>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right" id="boton-pagina-de-familia-entregar">
+            &nbsp;&nbsp;</a>
     </div>
 
     <div data-role="content">
@@ -157,10 +206,9 @@
 
 
         </fieldset>
-        <a href="#" data-role="button" data-icon="check">Elegir</a>
+        <a href="#" data-role="button" data-icon="check" id="boton-pagina-de-familia-entregar-inferior">Elegir</a>
     </div>
 </div>
-
 
 <div data-role="page" id="pagina-foto">
     <div data-role="header" data-theme="d">
@@ -176,33 +224,220 @@
 <div data-role="page" id="pagina-mapa">
     <div data-role="header" data-theme="d">
         <a href="#pagina-inicial" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
-        <h3>A map!</h3>
+
+        <h3>Mapa</h3>
     </div>
 
     <div data-role="content">
-        <fieldset data-role="controlgroup" data-type="horizontal">
+        <fieldset data-role="controlgroup">
             <input type='radio' value='gps' id='loc-gps' name='mode'>
             <label for='loc-gps'>GPS</label>
             <input type='radio' value='interactive' id='loc-interactive' name='mode'>
-            <label for='loc-interactive'>Interactive</label>
+            <label for='loc-interactive'>Interactivo</label>
             <input type='radio' value='manual' id='loc-manual' name='mode'>
             <label for='loc-manual'>Manual</label>
         </fieldset>
-        <div id="mapa" class="ui-map"></div>
-        <div class='ui-grid-b'>
-            <div class='ui-block-a ui-content'>
-                Latitude
-                <input name="latitude" type="number" step="0.0001">
+        <li data-role="fieldcontain">
+            <label for="longitude">Longitud</label>
+            <input id="longitude" name="longitude" type="tel">
+        </li>
+        <li data-role="fieldcontain">
+            <label for="latitude">Latitud</label>
+            <input id="latitude" name="latitude" type="tel">
+        </li>
+        <li data-role="fieldcontain">
+            <label for="accuracy">Precisión de GPS (m)</label>
+            <input id="accuracy" name="accuracy" type="tel">
+        </li>
+        <div id="mapa" class="ui-map" style="height:300px;"></div>
+    </div>
+</div>
+
+<div data-role="page" id="pagina-de-ayuda">
+    <div data-role="header">
+        <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Ayuda</h1>
+    </div>
+
+    <div data-role="content">
+        <p>Esta página está vacía, pero incluirá instrucciones sobre el uso de la aplicación.</p>
+    </div>
+</div>
+
+<div data-role="page" id="pagina-de-configuracion">
+    <div data-role="header">
+        <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Configuración</h1>
+    </div>
+
+    <div data-role="content">
+        <p>Esta página está vacía, pero incluirá opciones para configurar la aplicación.</p>
+    </div>
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva">
+    <div data-role="header">
+        <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Encuesta</h1>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-fecha-y-hora"><a
+                    id="boton-pagina-de-encuesta-nueva-fecha-y-hora-a"
+                    href="#pagina-de-encuesta-nueva-fecha-y-hora"><strong>Asignar fecha y hora.</strong></a></li>
+            <li data-theme="c"><a href="#demo-mail"><strong>Asignar localización.</strong></a></li>
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-familias"><a
+                    id="boton-pagina-de-encuesta-nueva-familias-a" href="#pagina-de-encuesta-nueva-familias"<strong>Asignar
+                familias.</strong></a></li>
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-foto"><a id="boton-pagina-de-encuesta-nueva-foto-a"
+                                                                           href="#pagina-de-encuesta-nueva-foto"><strong>Tomar
+                una foto.</strong></a></li>
+        </ul>
+        <br>
+        <br>
+        <li data-role="fieldcontain">
+            <label for="notes">Notas:</label>
+            <textarea name="notes" id="notes"></textarea>
+        </li>
+
+    </div>
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-familias">
+    <div data-role="header">
+        <a href="#pagina-de-encuesta-nueva" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Familias</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-familias-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" id="pagina-de-encuesta-lista-de-familias">
+        </ul>
+        <br><br>
+        <ul data-role="listview">
+            <li data-icon="plus">
+                <a href="#pagina-lista-de-ordenes" data-icon="plus"><h2><strong>Añadir una familia.</strong></h2></a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="confirm" class="ui-content" data-role="popup" data-theme="none">
+        <p id="question">¿Realmente eliminar familia?</p>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="yes" data-role="button" data-mini="true" data-shadow="false" data-theme="b"
+                   data-rel="back">Sí.</a>
             </div>
-            <div class='ui-block-b ui-content'>
-                Longitude
-                <input name="longitude" type="number" step="0.0001">
-            </div>
-            <div class='ui-block-c'>
-                Accuracy (m)
-                <input name="accuracy" type="number" step="0.0001">
+            <div class="ui-block-b">
+                <a id="cancel" data-role="button" data-mini="true" data-shadow="false" data-theme="b" data-rel="back">No.</a>
             </div>
         </div>
+    </div>
+
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-foto">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Foto</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-foto-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-role="fieldcontain">
+                <label for="image">Foto</label>
+                <input type="file" name="photo" id="image">
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-fecha-y-hora">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Fecha</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-role="fieldcontain">
+                <select name="select-choice-month" id="select-choice-month">
+                    <option value="01">enero</option>
+                    <option value="02">febrero</option>
+                    <option value="03">marzo</option>
+                    <option value="04">abril</option>
+                    <option value="05">mayo</option>
+                    <option value="06">junio</option>
+                    <option value="07">julio</option>
+                    <option value="08">agosto</option>
+                    <option value="09">septiembre</option>
+                    <option value="10">octubre</option>
+                    <option value="11">noviembre</option>
+                    <option value="12">diciembre</option>
+                </select>
+
+                <select name="select-choice-day" id="select-choice-day">
+                    <option value="01">1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+
+                <select name="select-choice-year" id="select-choice-year">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                </select>
+            </li>
+
+            <div data-role="header"> Hora</div>
+            <li data-role="fieldcontain">
+                <!--<label for="hora">Hora</label>-->
+                <input type="time" name="time" id="hora">
+            </li>
+        </ul>
     </div>
 </div>
 
