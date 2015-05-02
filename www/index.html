@@ -123,7 +123,6 @@
     </div>
 </div>
 
-
 <div data-role="page" id="pagina-lista-de-ordenes">
 
     <div data-role="header" data-theme="d">
@@ -140,7 +139,6 @@
     </div>
 
 </div>
-
 
 <div data-role="page" id="pagina-rejilla-de-ordenes" class="listview-grid">
 
@@ -159,7 +157,6 @@
 
 </div>
 
-
 <div data-role="page" id="pagina-lista-de-familias">
 
     <div data-role="header" data-theme="d">
@@ -175,7 +172,6 @@
     </div>
 </div>
 
-
 <div data-role="page" id="pagina-rejilla-de-familias">
 
     <div data-role="header" data-theme="d">
@@ -190,7 +186,6 @@
         </fieldset>
     </div>
 </div>
-
 
 <div data-role="page" id="pagina-de-familia">
 
@@ -280,22 +275,24 @@
 <div data-role="page" id="pagina-de-encuesta-nueva">
     <div data-role="header">
         <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
-
         <h1>Encuesta</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right" id="boton-pagina-de-encuesta-nueva-entregar">&nbsp;&nbsp;</a>
     </div>
 
     <div data-role="content">
         <ul data-role="listview">
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-fecha-y-hora"><a
                     id="boton-pagina-de-encuesta-nueva-fecha-y-hora-a"
-                    href="#pagina-de-encuesta-nueva-fecha-y-hora"><strong>Asignar fecha y hora.</strong></a></li>
-            <li data-theme="c"><a href="#demo-mail"><strong>Asignar localización.</strong></a></li>
+                    href="#pagina-de-encuesta-nueva-fecha-y-hora">Asignar fecha y hora.</a></li>
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-localizacion"><a
+                    id="boton-pagina-de-encuesta-nueva-localizacion-a"
+                    href="#pagina-de-encuesta-nueva-localizacion">Asignar localización.</a></li>
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-familias"><a
-                    id="boton-pagina-de-encuesta-nueva-familias-a" href="#pagina-de-encuesta-nueva-familias"<strong>Asignar
-                familias.</strong></a></li>
+                    id="boton-pagina-de-encuesta-nueva-familias-a" href="#pagina-de-encuesta-nueva-familias">Asignar
+                familias.</a></li>
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-foto"><a id="boton-pagina-de-encuesta-nueva-foto-a"
-                                                                           href="#pagina-de-encuesta-nueva-foto"><strong>Tomar
-                una foto.</strong></a></li>
+                                                                           href="#pagina-de-encuesta-nueva-foto">Tomar
+                una foto.</a></li>
         </ul>
         <br>
         <br>
@@ -304,61 +301,6 @@
             <textarea name="notes" id="notes"></textarea>
         </li>
 
-    </div>
-</div>
-
-<div data-role="page" id="pagina-de-encuesta-nueva-familias">
-    <div data-role="header">
-        <a href="#pagina-de-encuesta-nueva" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
-
-        <h1>Familias</h1>
-        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
-           id="boton-pagina-de-encuesta-nueva-familias-entregar">&nbsp;&nbsp;</a>
-    </div>
-
-    <div data-role="content">
-        <ul data-role="listview" id="pagina-de-encuesta-lista-de-familias">
-        </ul>
-        <br><br>
-        <ul data-role="listview">
-            <li data-icon="plus">
-                <a href="#pagina-lista-de-ordenes" data-icon="plus"><h2><strong>Añadir una familia.</strong></h2></a>
-            </li>
-        </ul>
-    </div>
-
-    <div id="confirm" class="ui-content" data-role="popup" data-theme="none">
-        <p id="question">¿Realmente eliminar familia?</p>
-
-        <div class="ui-grid-a">
-            <div class="ui-block-a">
-                <a id="yes" data-role="button" data-mini="true" data-shadow="false" data-theme="b"
-                   data-rel="back">Sí.</a>
-            </div>
-            <div class="ui-block-b">
-                <a id="cancel" data-role="button" data-mini="true" data-shadow="false" data-theme="b" data-rel="back">No.</a>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div data-role="page" id="pagina-de-encuesta-nueva-foto">
-    <div data-role="header">
-        <a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="left">&nbsp;&nbsp;</a>
-
-        <h1>Foto</h1>
-        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
-           id="boton-pagina-de-encuesta-nueva-foto-entregar">&nbsp;&nbsp;</a>
-    </div>
-
-    <div data-role="content">
-        <ul data-role="listview">
-            <li data-role="fieldcontain">
-                <label for="image">Foto</label>
-                <input type="file" name="photo" id="image">
-            </li>
-        </ul>
     </div>
 </div>
 
@@ -440,6 +382,95 @@
         </ul>
     </div>
 </div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-localizacion">
+
+    <div data-role="header">
+        <a href="#pagina-de-encuesta-nueva" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1>Localización</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-localizacion-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+
+        <ul data-role="listview">
+            <li data-role="button" data-icon="signal" id="get-gps">
+                <a href="#">Obtener coordenadas GPS.</a>
+            </li>
+            <li data-role="fieldcontain">
+                <label for="longitude">Longitud</label>
+                <input id="longitude2" name="longitude" type="tel">
+            </li>
+            <li data-role="fieldcontain">
+                <label for="latitude">Latitud</label>
+                <input id="latitude2" name="latitude" type="tel">
+            </li>
+            <li data-role="fieldcontain">
+                <label for="accuracy">Precisión de GPS (m)</label>
+                <input id="accuracy2" name="accuracy" type="tel">
+            </li>
+            <li id="result"></li>
+        </ul>
+    </div>
+
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-familias">
+    <div data-role="header">
+        <a href="#pagina-de-encuesta-nueva" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Familias</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-familias-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview" id="pagina-de-encuesta-lista-de-familias">
+        </ul>
+        <br><br>
+        <ul data-role="listview">
+            <li data-icon="plus">
+                <a href="#pagina-lista-de-ordenes" data-icon="plus"><h2><strong>Añadir una familia.</strong></h2></a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="confirm" class="ui-content" data-role="popup" data-theme="none">
+        <p id="question">¿Realmente eliminar familia?</p>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="yes" data-role="button" data-mini="true" data-shadow="false" data-theme="b"
+                   data-rel="back">Sí.</a>
+            </div>
+            <div class="ui-block-b">
+                <a id="cancel" data-role="button" data-mini="true" data-shadow="false" data-theme="b" data-rel="back">No.</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div data-role="page" id="pagina-de-encuesta-nueva-foto">
+    <div data-role="header">
+        <a href="#" data-role="button" data-icon="back" data-rel="back" data-iconpos="left">&nbsp;&nbsp;</a>
+
+        <h1>Foto</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-foto-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-role="fieldcontain">
+                <label for="image">Foto</label>
+                <input type="file" name="photo" id="image">
+            </li>
+        </ul>
+    </div>
+</div>
+
 
 
 </body>

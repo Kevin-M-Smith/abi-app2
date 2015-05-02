@@ -18,6 +18,45 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
      ***************************************/
     var ordenes = manifiesto['ordenes'];
     var familias = []
+    var mapa = "";
+
+    L.NumberedDivIcon = L.Icon.extend({
+        options: {
+            iconUrl: 'img/marcadores/',
+            color: 'rojo',
+            ext: '.png',
+            number: '',
+            shadowUrl: null,
+            iconSize: new L.Point(32, 32),
+            iconAnchor: new L.Point(16, 0),
+            popupAnchor: new L.Point(0, -33),
+            /*
+             iconAnchor: (Point)
+             popupAnchor: (Point)
+             */
+            className: 'leaflet-div-icon'
+        },
+
+        createIcon: function () {
+            var div = document.createElement('div');
+            var img = this._createImg(this.options['iconUrl'] + this.options['color'] + this.options['ext']);
+            var numdiv = document.createElement('div');
+            numdiv.setAttribute ( "class", "number" );
+            numdiv.innerHTML = this.options['number'] || '';
+            div.appendChild ( img );
+            div.appendChild ( numdiv );
+            this._setIconStyles(div, 'icon');
+            return div;
+        },
+
+        //you could change this to add a shadow like in the normal marker if you really wanted
+        createShadow: function () {
+            return null;
+        }
+    })
+
+
+
     $( document ).ready(function() {
         $.each(ordenes, function(i, orden) {
             $.each(orden['familias'], function(i,
@@ -247,12 +286,12 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
     });
 
-
     $(document).on("pagecreate", "#pagina-mapa", function(e){
 
         L.Icon.Default.imagePath = 'css/images';
 
         var map = L.map('mapa');
+        mapa = map;
 
         //L.tileLayer('img/mapas/medford/{z}/{x}/{y}.jpg', {
         //    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -262,6 +301,21 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        var marker1 = new L.Marker(new L.LatLng(42.4156005703471, -71.13437175750732), {
+            icon:	new L.NumberedDivIcon({number: '8', color: 'verde'})
+        });
+
+        var marker2 = new L.Marker(new L.LatLng(42.417121344773776, -71.13138914108276), {
+            icon:	new L.NumberedDivIcon({number: '1', color: 'rojo'})
+        });
+
+        var marker3 = new L.Marker(new L.LatLng(42.4160909152186, -71.13196849822998), {
+            icon:	new L.NumberedDivIcon({number: '6', color: 'amarillo'})
+        });
+
+        marker1.addTo(map);
+        marker2.addTo(map);
+        marker3.addTo(map);
 
         var fields = {
             'toggle': $('input[name=mode]'),
@@ -281,7 +335,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                     $('#message').html("");
                 }
             }
-        }
+        };
 
         var locator = locate.locator(map, fields, config);
 
@@ -357,9 +411,61 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         $("#boton-pagina-de-encuesta-nueva-familias-entregar").one("click", function (e) {
             $("#boton-pagina-de-encuesta-nueva-familias").attr('data-theme', 'd');
-            $("#boton-pagina-de-encuesta-nueva-familias-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $("#boton-pagina-de-encuesta-nueva-familias-a").removeClass('ui-btn-c').addClass('ui-btn-d')
             $.mobile.changePage("#pagina-de-encuesta-nueva");
         });
+    })
+
+
+
+    $(document).on("pagecreate", "#pagina-de-encuesta-nueva-localizacion", function(e) {
+
+        $("#get-gps").on("click", function(e) {
+            locate.locate(success, error);
+        });
+
+        function success(evt) {
+            $('#longitude2').val(evt.longitude);
+            $('#latitude2').val(evt.latitude);
+            $('#accuracy2').val(evt.accuracy);
+        }
+
+        function error(evt) {
+            $('#result').html("Error retrieving location.");
+        }
+
+        $("#boton-pagina-de-encuesta-nueva-localizacion-entregar").on("click", function (e) {
+            $("#boton-pagina-de-encuesta-nueva-localizacion").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-localizacion-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $("#pagina-de-encuesta-nueva").data("lat", $('#latitude2').val());
+            $("#pagina-de-encuesta-nueva").data("lon", $('#longitude2').val());
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        });
+    });
+
+
+    $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
+        $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
+
+            //map.on('locationfound', function(e){
+            //    var marker = new L.Marker(e.latlng, {
+            //        icon:	new L.NumberedDivIcon({number: '1'})
+            //    });
+            //    marker.addTo(map)
+            //});
+
+            //  var marker3 = new L.Marker(new L.LatLng($('#latitude2').val(), $('#longitude2').val()), {
+
+            var marker3 = new L.Marker(new L.LatLng(42.41598, -71.1391), {
+                icon:	new L.NumberedDivIcon({number: '5', color: 'amarillo'})
+            });
+
+            marker3.addTo(mapa);
+
+            console.log("test")
+            $.mobile.changePage("#pagina-inicial");
+        });
+
     });
 
 
