@@ -314,15 +314,33 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             if($("#" + nombre).length == 0){
 
 				
-                $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
-                + nombre + '"><a class="boton-nombre-de-familia" href="#"><table><tr>'
-                + '<th style="width:30px; text-align:right;">' + cantidad + 'x</th>'
-                + '<th rowspan="2"><div class="nombre-de-familia">&nbsp;&nbsp;' + nombre + '</div></th></tr>'
-                + '<tr><th style="text-align:right;">+' + puntos + '</td></th></table></a>'
+               //  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+//                 + nombre + '"><a class="boton-nombre-de-familia" href="#"><table align="left"><tr>'
+//                 + '<th style="width:30px; text-align:right;">+' + puntos + '</th>'
+//                 + '<th rowspan="2"><div class="nombre-de-familia">&nbsp;&nbsp;' + nombre + '</div></th></tr>'
+//                 + '<tr><th style="text-align:right;">(' + cantidad + ')</th></tr></table></a>'
+//                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+                
+//                  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+//                 + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
+//                 + '<td style="width:30px; text-align:right; font-size:0.8em;">&nbsp;+' + puntos + '</td>'
+//                 + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
+//                 + '<td style="width:30px; text-align:right; font-size:0.8em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
+//                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+//     
+ //                   $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+//                 + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
+//                 + '<td style="width:30px; text-align:right; font-size:1em;">&nbsp;' + puntos + '</td>'
+//                 + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
+//                 + '<td style="width:30px; text-align:right; font-size:0.9em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
+//                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+//     
+                  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+                + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
+                + '<td style="width:30px; text-align:right; font-size:1em;">&nbsp;' + puntos + '</td>'
+                + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
+                + '<td style="width:30px; text-align:right; font-size:1em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-                
-                
-    
 
 
 
