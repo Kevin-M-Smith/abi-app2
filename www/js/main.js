@@ -181,7 +181,6 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                     $("#pagina-de-familia").data("puntos", familias[this.id].puntos);
                     $("#pagina-de-familia").data("fotos", familias[this.id].fotos);
                     $("#pagina-de-familia").data("pagina-anterior", '#pagina-lista-de-familias');
-                    $("#pagina-de-familia").data("cantidad", 0)
                     $.mobile.changePage("#pagina-de-familia");
                 });
 
@@ -215,12 +214,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             function() {
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
-                    console.log(this);
                     $("#pagina-de-familia").data("nombre", familias[this.id].nombre);
                     $("#pagina-de-familia").data("puntos", familias[this.id].puntos);
                     $("#pagina-de-familia").data("fotos", familias[this.id].fotos);
                     $("#pagina-de-familia").data("pagina-anterior", '#pagina-rejilla-de-familias');
-                    $("#pagina-de-familia").data("cantidad", 0);
                     $.mobile.changePage("#pagina-de-familia");
 
                 });
@@ -235,16 +232,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
     $(document).on("pagebeforeshow", "#pagina-de-familia", function() {
 
-        console.log("pagina-de-fam")
-
         var nombre = $(this).data("nombre");
         var puntos = $(this).data("puntos");
-        var cantidad = $(this).data("cantidad");
-
-        if(typeof cantidad === 'undefined'){
-            cantidad = 0;
-        };
-
         var fotos = $(this).data("fotos");
         var pagina_anterior = $(this).data("pagina-anterior");
         var _grid = "";
@@ -261,16 +250,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         $("#boton-pagina-de-familia-entregar").off();
         $("#boton-pagina-de-familia-entregar").one("click", function (e) {
             e.preventDefault()
-
             $("#pagina-de-familia-total").data("nombre", nombre);
             $("#pagina-de-familia-total").data("puntos", puntos);
-            $("#pagina-de-familia-total").data("cantidad", cantidad);
+            $("#pagina-de-familia-total").data("fotos", fotos);
             $.mobile.changePage("#pagina-de-familia-total");
-           /* $("#pagina-de-encuesta-lista-de-familias").append('<li>' + '<a href="#demo-mail"><p class="nombre-de-familia">'
-            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");*/
-
-            console.log(nombre)
+    
         });
 
 
@@ -278,11 +262,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         $("#boton-pagina-de-familia-entregar-inferior").off();
         $("#boton-pagina-de-familia-entregar-inferior").one("click", function (e) {
             e.preventDefault();
-            $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' + nombre + '"><a href="#demo-mail"><p class="nombre-de-familia">'
-            + nombre + ' (' + puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
-
-            console.log(nombre)
+            $("#pagina-de-familia-total").data("nombre", nombre);
+            $("#pagina-de-familia-total").data("puntos", puntos);
+            $("#pagina-de-familia-total").data("fotos", fotos);
+            $.mobile.changePage("#pagina-de-familia-total");
         });
 
 
@@ -306,20 +289,15 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagebeforeshow", "#pagina-de-familia-total", function () {
         var nombre = $(this).data("nombre");
         var puntos = $(this).data("puntos");
+        var fotos = $(this).data("fotos");
 
         var cantidad = $("#" + nombre).data("cantidad")
-
-        console.log("cantidad:");
-        console.log(cantidad)
 
         if(typeof cantidad == 'undefined'){
                 cantidad = 0;
         }
 
         console.log(cantidad);
-
-
-
 
         $("#pagina-de-familia-total-nombre").text(nombre);
         $("#pagina-de-familia-total-puntos").text(puntos);
@@ -330,28 +308,56 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         $("#boton-pagina-de-familia-total-entregar").one("click", function (e) {
             e.preventDefault();
 
+			var cantidad = $("#pagina-de-familia-total-cantidad").val()
+
 
             if($("#" + nombre).length == 0){
-                $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' + nombre + '"><a href="#demo-mail"><p class="nombre-de-familia">'
-                + nombre + ' (' + puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+
+				
+                $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+                + nombre + '"><a class="boton-nombre-de-familia" href="#"><table><tr>'
+                + '<th style="width:30px; text-align:right;">' + cantidad + 'x</th>'
+                + '<th rowspan="2"><div class="nombre-de-familia">&nbsp;&nbsp;' + nombre + '</div></th></tr>'
+                + '<tr><th style="text-align:right;">+' + puntos + '</td></th></table></a>'
+                + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+                
+                
+    
+
+
+
+
+                $("#" + nombre).data("cantidad", cantidad);
+                $("#" + nombre).data("nombre", nombre);
+                $("#" + nombre).data("puntos", puntos);
+                $("#" + nombre).data("fotos", fotos);
+
+				$("#" + nombre + " .boton-nombre-de-familia").on("click", function (e) {
+		
+		 		    var nombre = $(this).parent().data("nombre");
+        			var puntos = $(this).parent().data("puntos");
+        			var fotos = $(this).parent().data("fotos");
+        			        			
+        			$("#pagina-de-familia").data("nombre", nombre);
+        			$("#pagina-de-familia").data("puntos", puntos);
+        			$("#pagina-de-familia").data("fotos", fotos);
+        			$("#pagina-de-familia").data("pagina-anterior", '#pagina-de-encuesta-nueva-familias');
+
+        			$.mobile.changePage("#pagina-de-familia");
+				
+				});
 
 
                 $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
 
-                $("#" + nombre).data("cantidad", $("#pagina-de-familia-total-cantidad").val());
-
             } else {
-                $("#" + nombre).data("cantidad", $("#pagina-de-familia-total-cantidad").val());
+                $("#" + nombre).data("cantidad", cantidad);
+                $("#" + nombre + ".cantidad-de-familia").text(cantidad)
                 $.mobile.changePage("#pagina-de-encuesta-nueva-familias")
             }
 
-
-            console.log("click!")
         });
-
-
-
-
+        
     });
 
 
@@ -487,12 +493,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 $("#confirm #yes").off();
             });
         }
-
-        $(document).on("click", "#pagina-de-encuesta-lista-de-familias li", function (e) {
-            confirmAndDelete($(this));
+        
+        $(document).on("click", ".delete", function(e){
+        	confirmAndDelete($(this).parent());
         });
-
-
+        
         $("#boton-pagina-de-encuesta-nueva-familias-entregar").one("click", function (e) {
             $("#boton-pagina-de-encuesta-nueva-familias").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-familias-a").removeClass('ui-btn-c').addClass('ui-btn-d')
@@ -545,7 +550,6 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
             marker3.addTo(mapa);
 
-            console.log("test")
             $.mobile.changePage("#pagina-inicial");
         });
 
