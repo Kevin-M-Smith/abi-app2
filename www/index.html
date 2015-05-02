@@ -205,6 +205,22 @@
     </div>
 </div>
 
+
+<div data-role="page" id="pagina-de-familia-total">
+    <div data-role="header">
+        <a href="#" data-role="button" id="boton-atras-pagina-de-familia-total" data-icon="back" data-rel="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1 id="encabezado-pagina-de-familia-total">&nbsp;&nbsp;</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right" id="boton-pagina-de-familia-total-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <div id="pagina-de-familia-total-nombre">one</div>
+        <div id="pagina-de-familia-total-puntos">two</div>
+        <input type="number" id="pagina-de-familia-total-cantidad" min="0" step="1"/>
+    </div>
+
+</div>
+
 <div data-role="page" id="pagina-foto">
     <div data-role="header" data-theme="d">
 
@@ -281,18 +297,20 @@
 
     <div data-role="content">
         <ul data-role="listview">
-            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-fecha-y-hora"><a
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-fecha-y-hora"><a style="text-shadow: none;"
                     id="boton-pagina-de-encuesta-nueva-fecha-y-hora-a"
                     href="#pagina-de-encuesta-nueva-fecha-y-hora">Asignar fecha y hora.</a></li>
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-localizacion"><a
+                    style="text-shadow: none;"
                     id="boton-pagina-de-encuesta-nueva-localizacion-a"
                     href="#pagina-de-encuesta-nueva-localizacion">Asignar localización.</a></li>
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-familias"><a
+                    style="text-shadow: none;"
                     id="boton-pagina-de-encuesta-nueva-familias-a" href="#pagina-de-encuesta-nueva-familias">Asignar
                 familias.</a></li>
-            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-foto"><a id="boton-pagina-de-encuesta-nueva-foto-a"
-                                                                           href="#pagina-de-encuesta-nueva-foto">Tomar
-                una foto.</a></li>
+           <!--<li data-theme="c" id="boton-pagina-de-encuesta-nueva-foto"><a id="boton-pagina-de-encuesta-nueva-foto-a"-->
+                                                                           <!--href="#pagina-de-encuesta-nueva-foto">Tomar-->
+                <!--una foto.</a></li>-->
         </ul>
         <br>
         <br>
@@ -396,19 +414,20 @@
 
         <ul data-role="listview">
             <li data-role="button" data-icon="signal" id="get-gps">
-                <a href="#">Obtener coordenadas GPS.</a>
+                <a href="#"><div style="width:30em">Obtene
+                    coordenadas GPS.</div></a>
             </li>
             <li data-role="fieldcontain">
                 <label for="longitude">Longitud</label>
-                <input id="longitude2" name="longitude" type="tel">
+                <input id="longitude2" name="longitude" type="number">
             </li>
             <li data-role="fieldcontain">
                 <label for="latitude">Latitud</label>
-                <input id="latitude2" name="latitude" type="tel">
+                <input id="latitude2" name="latitude" type="number">
             </li>
-            <li data-role="fieldcontain">
+            <li data-role="fieldcontain" style="visibility: hidden">
                 <label for="accuracy">Precisión de GPS (m)</label>
-                <input id="accuracy2" name="accuracy" type="tel">
+                <input id="accuracy2" name="accuracy" type="number">
             </li>
             <li id="result"></li>
         </ul>
@@ -431,7 +450,8 @@
         <br><br>
         <ul data-role="listview">
             <li data-icon="plus">
-                <a href="#pagina-lista-de-ordenes" data-icon="plus"><h2><strong>Añadir una familia.</strong></h2></a>
+                <a href="#pagina-lista-de-ordenes" data-icon="plus">
+                    <h2><strong>Añadir una familia.</strong></h2></a>
             </li>
         </ul>
     </div>
@@ -470,6 +490,7 @@
         </ul>
     </div>
 </div>
+
 
 
 

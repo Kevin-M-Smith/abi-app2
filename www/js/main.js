@@ -104,8 +104,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                     $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
 
                     if(ordenes[this.id]['familias'].length == 1){
-                        $("#pagina-de-familia").data("familia", ordenes[this.id]['familias'][0]);
-                        $("#pagina-de-familia").data("pagina-anterior", '#pagina-lista-de-ordenes')
+                        $("#pagina-de-familia").data("nombre", ordenes[this.id]['familias'][0].nombre);
+                        $("#pagina-de-familia").data("puntos", ordenes[this.id]['familias'][0].puntos);
+                        $("#pagina-de-familia").data("fotos", ordenes[this.id]['familias'][0].fotos);
+                        $("#pagina-de-familia").data("pagina-anterior", '#pagina-lista-de-ordenes');
                         $.mobile.changePage("#pagina-de-familia");
                     } else {
                         $.mobile.changePage("#pagina-lista-de-familias");
@@ -134,8 +136,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                     $("#pagina-rejilla-de-familias").data("orden", ordenes[this.id]);
                     $("#pagina-lista-de-familias").data("orden", ordenes[this.id]);
                     if (ordenes[this.id]['familias'].length == 1) {
-                        $("#pagina-de-familia").data("familia", ordenes[this.id]['familias'][0]);
-                        $("#pagina-de-familia").data("pagina-anterior", '#pagina-rejilla-de-ordenes')
+                        $("#pagina-de-familia").data("nombre", ordenes[this.id]['familias'][0].nombre);
+                        $("#pagina-de-familia").data("puntos", ordenes[this.id]['familias'][0].puntos);
+                        $("#pagina-de-familia").data("fotos", ordenes[this.id]['familias'][0].fotos);
+                        $("#pagina-de-familia").data("pagina-anterior", '#pagina-rejilla-de-ordenes');
+                        $("#pagina-de-familia").data("cantidad", 0);
                         $.mobile.changePage("#pagina-de-familia");
                     } else {
                         $.mobile.changePage("#pagina-rejilla-de-familias");
@@ -172,8 +177,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
-                    $("#pagina-de-familia").data("familia", familias[this.id])
-                    $("#pagina-de-familia").data("pagina-anterior", '#pagina-lista-de-familias')
+                    $("#pagina-de-familia").data("nombre", familias[this.id].nombre);
+                    $("#pagina-de-familia").data("puntos", familias[this.id].puntos);
+                    $("#pagina-de-familia").data("fotos", familias[this.id].fotos);
+                    $("#pagina-de-familia").data("pagina-anterior", '#pagina-lista-de-familias');
+                    $("#pagina-de-familia").data("cantidad", 0)
                     $.mobile.changePage("#pagina-de-familia");
                 });
 
@@ -208,8 +216,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
                     console.log(this);
-                    $("#pagina-de-familia").data("familia", familias[this.id]);
-                    $("#pagina-de-familia").data("pagina-anterior", '#pagina-rejilla-de-familias')
+                    $("#pagina-de-familia").data("nombre", familias[this.id].nombre);
+                    $("#pagina-de-familia").data("puntos", familias[this.id].puntos);
+                    $("#pagina-de-familia").data("fotos", familias[this.id].fotos);
+                    $("#pagina-de-familia").data("pagina-anterior", '#pagina-rejilla-de-familias');
+                    $("#pagina-de-familia").data("cantidad", 0);
                     $.mobile.changePage("#pagina-de-familia");
 
                 });
@@ -223,38 +234,55 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
      ***************************************/
 
     $(document).on("pagebeforeshow", "#pagina-de-familia", function() {
-        var familia = $(this).data("familia");
-        var fotos = familia['fotos'];
-        var pagina_anterior = $(this).data("pagina-anterior")
+
+        console.log("pagina-de-fam")
+
+        var nombre = $(this).data("nombre");
+        var puntos = $(this).data("puntos");
+        var cantidad = $(this).data("cantidad");
+
+        if(typeof cantidad === 'undefined'){
+            cantidad = 0;
+        };
+
+        var fotos = $(this).data("fotos");
+        var pagina_anterior = $(this).data("pagina-anterior");
         var _grid = "";
 
-        $("#encabezado-pagina-de-familia").text(familia.nombre + ' (' + familia.puntos + ')');
+        $("#encabezado-pagina-de-familia").text(nombre + ' (' + puntos + ')');
         $("#boton-atras-pagina-de-familia").attr('href', pagina_anterior);
 
-        $.each(familia['fotos'], function(i, foto){
+        $.each(fotos, function(i, foto){
                 _grid += '<div class="ui-block-a"><a href="#" class="info-go" id="'
                 + i + '"><img src="'
                 + foto + '"></a><hr></div>';
         });
 
-        $("#boton-pagina-de-familia-entregar").off()
+        $("#boton-pagina-de-familia-entregar").off();
         $("#boton-pagina-de-familia-entregar").one("click", function (e) {
-            e.preventDefault();
-            $("#pagina-de-encuesta-lista-de-familias").append('<li><a href="#demo-mail"><p class="nombre-de-familia">'
-            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
+            e.preventDefault()
 
-            console.log(familia.nombre)
+            $("#pagina-de-familia-total").data("nombre", nombre);
+            $("#pagina-de-familia-total").data("puntos", puntos);
+            $("#pagina-de-familia-total").data("cantidad", cantidad);
+            $.mobile.changePage("#pagina-de-familia-total");
+           /* $("#pagina-de-encuesta-lista-de-familias").append('<li>' + '<a href="#demo-mail"><p class="nombre-de-familia">'
+            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+            $.mobile.changePage("#pagina-de-encuesta-nueva-familias");*/
+
+            console.log(nombre)
         });
 
-        $("#boton-pagina-de-familia-entregar-inferior").off()
+
+
+        $("#boton-pagina-de-familia-entregar-inferior").off();
         $("#boton-pagina-de-familia-entregar-inferior").one("click", function (e) {
             e.preventDefault();
-            $("#pagina-de-encuesta-lista-de-familias").append('<li><a href="#demo-mail"><p class="nombre-de-familia">'
-            + familia.nombre + ' (' + familia.puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+            $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' + nombre + '"><a href="#demo-mail"><p class="nombre-de-familia">'
+            + nombre + ' (' + puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
             $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
 
-            console.log(familia.nombre)
+            console.log(nombre)
         });
 
 
@@ -264,13 +292,69 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 $(this).on("click", ".info-go", function (e) {
                     e.preventDefault();
                     $("#pagina-foto").data("foto", fotos[this.id]);
-                    $("#pagina-foto").data("nombre", familia['nombre']);
+                    $("#pagina-foto").data("nombre", nombre);
                     $.mobile.changePage("#pagina-foto");
                 });
 
             });
 
     });
+
+    /***************************************
+     *	preparar página de familia total
+     ***************************************/
+    $(document).on("pagebeforeshow", "#pagina-de-familia-total", function () {
+        var nombre = $(this).data("nombre");
+        var puntos = $(this).data("puntos");
+
+        var cantidad = $("#" + nombre).data("cantidad")
+
+        console.log("cantidad:");
+        console.log(cantidad)
+
+        if(typeof cantidad == 'undefined'){
+                cantidad = 0;
+        }
+
+        console.log(cantidad);
+
+
+
+
+        $("#pagina-de-familia-total-nombre").text(nombre);
+        $("#pagina-de-familia-total-puntos").text(puntos);
+        $("#pagina-de-familia-total-cantidad").val(cantidad);
+
+
+        $("#boton-pagina-de-familia-total-entregar").off();
+        $("#boton-pagina-de-familia-total-entregar").one("click", function (e) {
+            e.preventDefault();
+
+
+            if($("#" + nombre).length == 0){
+                $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' + nombre + '"><a href="#demo-mail"><p class="nombre-de-familia">'
+                + nombre + ' (' + puntos + ')</p></a><a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
+
+
+                $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
+
+                $("#" + nombre).data("cantidad", $("#pagina-de-familia-total-cantidad").val());
+
+            } else {
+                $("#" + nombre).data("cantidad", $("#pagina-de-familia-total-cantidad").val());
+                $.mobile.changePage("#pagina-de-encuesta-nueva-familias")
+            }
+
+
+            console.log("click!")
+        });
+
+
+
+
+    });
+
+
 
 
     $(document).on("pagebeforeshow", "#pagina-foto", function() {
@@ -415,7 +499,6 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             $.mobile.changePage("#pagina-de-encuesta-nueva");
         });
     })
-
 
 
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva-localizacion", function(e) {
