@@ -58,6 +58,9 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
 
     $( document ).ready(function() {
+        $(this).scrollTop(0);
+        $("body, html").show();
+
         $.each(ordenes, function(i, orden) {
             $.each(orden['familias'], function(i,
                                                familia) {
@@ -699,6 +702,15 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
     $(document).on("pagecreate", "#pagina-de-enviar", function(e){
 
+
+        $("#reiniciar").on('click', function(e){
+            var r = window.confirm("Reiniciar?")
+
+            if(r){
+                document.location = "index.html";
+            }
+
+        });
 
 
     });

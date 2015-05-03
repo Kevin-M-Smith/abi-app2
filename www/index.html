@@ -98,7 +98,7 @@
 </head>
 
 
-<body>
+<body style="display:none;">
 
 <div data-role="page" id="pagina-inicial">
     <div data-role="header" data-theme="a">
@@ -107,9 +107,9 @@
 
     <div data-role="content">
         <ul data-role="listview" id="lista-inicial">
-            <li><a href="#pagina-mapa"><img src="img/marcadores/mapa.png">
+            <!--<li><a href="#pagina-mapa"><img src="img/marcadores/mapa.png">-->
 
-                <p style="white-space:normal;">Buscar en la calidad del agua cerca.</p></a></li>
+                <!--<p style="white-space:normal;">Buscar en la calidad del agua cerca.</p></a></li>-->
             <li><a href="#pagina-de-encuesta-nueva"><img src="img/marcadores/insecto.png">
 
                 <p style="white-space:normal;">Tome una nueva encuesta.</p></a></li>
@@ -544,10 +544,26 @@
 <div data-role="page" id="pagina-de-enviar">
     <div data-role="content">
         <br>
-        <br>
+        <a href="#" data-role="button" data-rel="back" data-icon="arrow-l" data-iconpos="right" style="font-size:1.5em;">Regressar</a>
         <a id="email" href="#" data-role="button" data-icon="arrow-r" data-iconpos="right" style="font-size: 1.5em;">Enviar</a>
+        <a id="reiniciar" href="#" data-role="button" data-icon="refresh" data-iconpos="right" style="font-size: 1.5em;">Reiniciar</a>
     </div>
-</div>
+
+    <div id="reiniciar-confirm" class="ui-content" data-role="popup" data-theme="none">
+        <p id="reiniciar-info">¿Realmente reiniciar?</p>
+
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <a id="reiniciar-si" data-role="button" data-mini="true" data-shadow="false" data-theme="b"
+                   data-rel="back">Sí.</a>
+            </div>
+            <div class="ui-block-b">
+                <a id="reiniciar-no" data-role="button" data-mini="true" data-shadow="false" data-theme="b" data-rel="back">No.</a>
+            </div>
+        </div>
+
+
+    </div>
 
 
 
