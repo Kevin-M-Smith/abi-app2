@@ -165,7 +165,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         var li = "";
 
-        $("#encabezado-pagina-lista-de-familias").text(orden.nombre)
+        $("#encabezado-pagina-lista-de-familias").text(orden.nombre);
+
 
         $.each(orden['familias'], function(i, _familia){
             li += '<li><a href="#" class="info-go" id="' + i + '">' + _familia.nombre + '</a></li>'
@@ -198,7 +199,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         var familias = orden['familias'];
         var _grid = "";
 
-        $("#encabezado-pagina-rejilla-de-familias").text(orden.nombre)
+        $("#encabezado-pagina-rejilla-de-familias").text(orden.nombre);
 
         $.each(familias, function(i, _familia){
                 _grid += '<div class="ui-block-a"><a href="#" class="info-go" id="'
@@ -238,7 +239,9 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         var pagina_anterior = $(this).data("pagina-anterior");
         var _grid = "";
 
-        $("#encabezado-pagina-de-familia").text(nombre + ' (' + puntos + ')');
+
+        $("#encabezado-pagina-de-familia").html(nombre + '&nbsp;&nbsp;+' + puntos);
+
         $("#boton-atras-pagina-de-familia").attr('href', pagina_anterior);
 
         $.each(fotos, function(i, foto){
@@ -294,55 +297,53 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         var cantidad = $("#" + nombre).data("cantidad")
 
         if(typeof cantidad == 'undefined'){
-                cantidad = 0;
+                cantidad = 1;
         }
 
-        console.log(cantidad);
+        $("#encabezado-pagina-de-familia-total").text(nombre);
 
-        $("#pagina-de-familia-total-nombre").text(nombre);
-        $("#pagina-de-familia-total-puntos").text(puntos);
         $("#pagina-de-familia-total-cantidad").val(cantidad);
 
 
-        $("#boton-pagina-de-familia-total-entregar").off();
-        $("#boton-pagina-de-familia-total-entregar").one("click", function (e) {
+        function entregar(e){
             e.preventDefault();
 
-			var cantidad = $("#pagina-de-familia-total-cantidad").val()
+            var cantidad = $("#pagina-de-familia-total-cantidad").val()
 
+            console.log(cantidad)
 
             if($("#" + nombre).length == 0){
 
-				
-               //  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+                console.log(true)
+
+
+                //  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="'
 //                 + nombre + '"><a class="boton-nombre-de-familia" href="#"><table align="left"><tr>'
 //                 + '<th style="width:30px; text-align:right;">+' + puntos + '</th>'
 //                 + '<th rowspan="2"><div class="nombre-de-familia">&nbsp;&nbsp;' + nombre + '</div></th></tr>'
 //                 + '<tr><th style="text-align:right;">(' + cantidad + ')</th></tr></table></a>'
 //                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-                
-//                  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+
+//                  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="'
 //                 + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
 //                 + '<td style="width:30px; text-align:right; font-size:0.8em;">&nbsp;+' + puntos + '</td>'
 //                 + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
 //                 + '<td style="width:30px; text-align:right; font-size:0.8em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
 //                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-//     
- //                   $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
+//
+                //                   $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="'
 //                 + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
 //                 + '<td style="width:30px; text-align:right; font-size:1em;">&nbsp;' + puntos + '</td>'
 //                 + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
 //                 + '<td style="width:30px; text-align:right; font-size:0.9em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
 //                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-//     
-                  $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'id="' 
-                + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="left"><tr>'
-                + '<td style="width:30px; text-align:right; font-size:1em;">&nbsp;' + puntos + '</td>'
-                + '<th><div style="width:136px;" class="nombre-de-familia">' + nombre + '</div></th>'
-                + '<td style="width:30px; text-align:right; font-size:1em;">(' + cantidad + ')&nbsp;</td></tr></table></a>'
+//
+                $("#pagina-de-encuesta-lista-de-familias").append('<li ' + 'class="nombre-de-familia" id="'
+                + nombre + '"><a class="boton-nombre-de-familia" href="#" style="padding-left: 0px; padding-right: 0px;"><table align="center" width="100%"><tr>'
+                + '<td style="width:15%; text-align:right; font-size:0.9em;">+' + puntos + '</td>'
+                + '<th style="width:70%; text-align:center;">' + nombre + '</div></th>'
+                + '<td style="width:15%; text-align:right; font-size:0.9em;" class="cantidad-de-familia">(' + cantidad + ')&nbsp;</td></tr></table></a>'
                 + '<a href="#" data-icon="delete" class="delete">&nbsp;&nbsp;</a></li>').listview('refresh');
-
-
 
 
                 $("#" + nombre).data("cantidad", cantidad);
@@ -350,31 +351,88 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 $("#" + nombre).data("puntos", puntos);
                 $("#" + nombre).data("fotos", fotos);
 
-				$("#" + nombre + " .boton-nombre-de-familia").on("click", function (e) {
-		
-		 		    var nombre = $(this).parent().data("nombre");
-        			var puntos = $(this).parent().data("puntos");
-        			var fotos = $(this).parent().data("fotos");
-        			        			
-        			$("#pagina-de-familia").data("nombre", nombre);
-        			$("#pagina-de-familia").data("puntos", puntos);
-        			$("#pagina-de-familia").data("fotos", fotos);
-        			$("#pagina-de-familia").data("pagina-anterior", '#pagina-de-encuesta-nueva-familias');
+                $("#" + nombre + " .boton-nombre-de-familia").on("click", function (e) {
 
-        			$.mobile.changePage("#pagina-de-familia");
-				
-				});
+                    var nombre = $(this).parent().data("nombre");
+                    var puntos = $(this).parent().data("puntos");
+                    var fotos = $(this).parent().data("fotos");
+
+                    $("#pagina-de-familia").data("nombre", nombre);
+                    $("#pagina-de-familia").data("puntos", puntos);
+                    $("#pagina-de-familia").data("fotos", fotos);
+                    $("#pagina-de-familia").data("pagina-anterior", '#pagina-de-encuesta-nueva-familias');
+
+                    $.mobile.changePage("#pagina-de-familia");
+
+                });
+
+
+                function setColor(_ABI){
+                    if(_ABI > 70) return "#99E6FF";
+                    if(_ABI > 45) return "#94FF70";
+                    if(_ABI > 27) return "#FFFA4F";
+                    if(_ABI > 11) return "#FFAD33";
+
+                    return "#F75D63";
+                }
+
+
+                var _familias = $(".nombre-de-familia")
+                var ABI = 0;
+                var cantidad = 0;
+
+                $.each(_familias, function(i, familia){
+                    var _familia = $("#" + familia.id)
+                    ABI += parseInt(_familia.data('puntos'));
+                    cantidad += parseInt(_familia.data('cantidad'));
+                });
+
+                $("#pagina-de-encuesta-nueva-familias-ABI").html('&nbsp;&nbsp;&nbsp;' + ABI);
+                $("#pagina-de-encuesta-nueva-familias-cantidad").html('(' + cantidad + ')');
+                $("#pagina-de-encuesta-nueva-familias-total li").css("background", setColor(ABI))
+                $("#pagina-de-encuesta-nueva-familias-total").show();
 
 
                 $.mobile.changePage("#pagina-de-encuesta-nueva-familias");
 
             } else {
                 $("#" + nombre).data("cantidad", cantidad);
-                $("#" + nombre + ".cantidad-de-familia").text(cantidad)
+                $("#" + nombre + " .cantidad-de-familia").text('(' + cantidad + ')')
+
+                function setColor(_ABI){
+                    if(_ABI > 70) return "#99E6FF";
+                    if(_ABI > 45) return "#94FF70";
+                    if(_ABI > 27) return "#FFFA4F";
+                    if(_ABI > 11) return "#FFAD33";
+
+                    return "#F75D63";
+                }
+
+                var _familias = $(".nombre-de-familia")
+                var ABI = 0;
+                var cantidad = 0;
+
+                $.each(_familias, function(i, familia){
+                    var _familia = $("#" + familia.id)
+                    ABI += parseInt(_familia.data('puntos'));
+                    cantidad += parseInt(_familia.data('cantidad'));
+                });
+
+                $("#pagina-de-encuesta-nueva-familias-ABI").html('&nbsp;&nbsp;&nbsp;' + ABI);
+                $("#pagina-de-encuesta-nueva-familias-cantidad").html('(' + cantidad + ')');
+                $("#pagina-de-encuesta-nueva-familias-total li").css("background", setColor(ABI))
+                $("#pagina-de-encuesta-nueva-familias-total").show();
+
                 $.mobile.changePage("#pagina-de-encuesta-nueva-familias")
             }
+        }
 
-        });
+
+        $("#boton-pagina-de-familia-total-entregar").off();
+        $("#boton-pagina-de-familia-total-entregar").one("click", entregar);
+
+        $("#boton-pagina-de-familia-total-entregar-inferior").off();
+        $("#boton-pagina-de-familia-total-entregar-inferior").one("click", entregar);
         
     });
 
@@ -482,6 +540,13 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
      ***************************************/
 
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva-fecha-y-hora", function (e) {
+
+        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar-inferior").on("click", function (e) {
+            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        });
+
         $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar").on("click", function (e) {
             $("#boton-pagina-de-encuesta-nueva-fecha-y-hora").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-a").removeClass('ui-btn-c').addClass('ui-btn-d');
@@ -503,6 +568,33 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             $("#confirm").popup("open");
             $("#confirm #yes").on("click", function () {
                 listitem.remove();
+
+
+                function setColor(_ABI){
+                    if(_ABI > 70) return "#99E6FF";
+                    if(_ABI > 45) return "#94FF70";
+                    if(_ABI > 27) return "#FFFA4F";
+                    if(_ABI > 11) return "#FFAD33";
+
+                    return "#F75D63";
+                }
+
+
+                var _familias = $(".nombre-de-familia")
+                var ABI = 0;
+                var cantidad = 0;
+
+                $.each(_familias, function(i, familia){
+                    var _familia = $("#" + familia.id)
+                    ABI += parseInt(_familia.data('puntos'));
+                    cantidad += parseInt(_familia.data('cantidad'));
+                });
+
+                $("#pagina-de-encuesta-nueva-familias-ABI").html('&nbsp;&nbsp;&nbsp;' + ABI);
+                $("#pagina-de-encuesta-nueva-familias-cantidad").html('(' + cantidad + ')');
+                $("#pagina-de-encuesta-nueva-familias-total li").css("background", setColor(ABI));
+
+
                 $("#pagina-de-encuesta-lista-de-familias").listview("refresh");
             });
 
@@ -516,7 +608,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         	confirmAndDelete($(this).parent());
         });
         
-        $("#boton-pagina-de-encuesta-nueva-familias-entregar").one("click", function (e) {
+        $("#boton-pagina-de-encuesta-nueva-familias-entregar").on("click", function (e) {
             $("#boton-pagina-de-encuesta-nueva-familias").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-familias-a").removeClass('ui-btn-c').addClass('ui-btn-d')
             $.mobile.changePage("#pagina-de-encuesta-nueva");
