@@ -422,9 +422,9 @@
 
      <div data-role="content">
          <div style="text-size: 1.5em; text-align: center;"><h3 style="margin: 0px;">Fecha</h3></div>
-         <div style="text-size: 1.5em; text-align: center;"><input type="date"/></div>
+         <div style="text-size: 1.5em; text-align: center;"><input id="fecha" type="date"/></div>
          <div style="text-size: 1.5em; text-align: center;"><h3 style="margin: 0px;">Hora</h3></div>
-         <div style="text-size: 1.5em; text-align: center;"><input type="time"/></div>
+         <div style="text-size: 1.5em; text-align: center;"><input id="hora" type="time"/></div>
      </div>
 
      <a href="#" data-role="button" data-icon="check" id="boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar-inferior" style="font-size:1.25em; text-align:center;">Entregar</a>
@@ -455,13 +455,11 @@
                  <label for="latitude">Latitud</label>
                  <input id="latitude2" name="latitude" type="number">
              </li>
-             <li data-role="fieldcontain" style="visibility: hidden">
-                 <label for="accuracy">Precisión de GPS (m)</label>
-                 <input id="accuracy2" name="accuracy" type="number">
-             </li>
-             <li id="result"></li>
          </ul>
      </div>
+
+     <a href="#" data-role="button" data-icon="check" id="boton-pagina-de-encuesta-nueva-localizacion-entregar-inferior" style="font-size:1.25em; text-align:center;">Entregar</a>
+     <div style="visibility: hidden;"><input id="accuracy2" name="accuracy" type="number"/></div>
 
  </div>
 
@@ -542,6 +540,14 @@
          </ul>
      </div>
  </div>
+
+<div data-role="page" id="pagina-de-enviar">
+    <div data-role="content">
+        <br>
+        <br>
+        <a id="email" href="#" data-role="button" data-icon="arrow-r" data-iconpos="right" style="font-size: 1.5em;">Enviar</a>
+    </div>
+</div>
 
 
 

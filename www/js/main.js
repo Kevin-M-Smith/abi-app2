@@ -541,17 +541,27 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva-fecha-y-hora", function (e) {
 
-        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar-inferior").on("click", function (e) {
-            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora").attr('data-theme', 'd');
-            $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-a").removeClass('ui-btn-c').addClass('ui-btn-d');
-            $.mobile.changePage("#pagina-de-encuesta-nueva");
-        });
+        function entregar(e){
 
-        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar").on("click", function (e) {
+            if($("#fecha").val().length == 0){
+                alert("Por favor, introduzca la fecha.");
+                return;
+            }
+
+            if($("#hora").val().length == 0){
+                alert("Por favor, introduzca la hora.");
+                return;
+            }
+
+            $("#pagina-de-encuesta-nueva").data("fecha", fecha);
+            $("#pagina-de-encuesta-nueva").data("hora", hora);
             $("#boton-pagina-de-encuesta-nueva-fecha-y-hora").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-a").removeClass('ui-btn-c').addClass('ui-btn-d');
             $.mobile.changePage("#pagina-de-encuesta-nueva");
-        });
+        }
+
+        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar-inferior").on("click", entregar);
+        $("#boton-pagina-de-encuesta-nueva-fecha-y-hora-entregar").on("click", entregar);
     });
 
 
@@ -632,19 +642,40 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             $('#result').html("Error retrieving location.");
         }
 
-        $("#boton-pagina-de-encuesta-nueva-localizacion-entregar").on("click", function (e) {
+
+        function entregar(e){
+
+            var _lat = $('#latitude2').val();
+            var _lon = $('#longitude2').val();
+
+            if(_lon.length == 0){
+                alert("Por favor, introduzca la longitud.");
+                return;
+            }
+
+            if(_lat.length == 0){
+                alert("Por favor, introduzca la latitud.");
+                return;
+            }
+
             $("#boton-pagina-de-encuesta-nueva-localizacion").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-localizacion-a").removeClass('ui-btn-c').addClass('ui-btn-d');
-            $("#pagina-de-encuesta-nueva").data("lat", $('#latitude2').val());
-            $("#pagina-de-encuesta-nueva").data("lon", $('#longitude2').val());
+            $("#pagina-de-encuesta-nueva").data("lat", _lat);
+            $("#pagina-de-encuesta-nueva").data("lon", _lon);
+            $("#pagina-de-encuseta-nueva").data("pre", $("#accuracy2").val())
             $.mobile.changePage("#pagina-de-encuesta-nueva");
-        });
+        }
+
+        $("#boton-pagina-de-encuesta-nueva-localizacion-entregar").on("click", entregar);
+        $("#boton-pagina-de-encuesta-nueva-localizacion-entregar-inferior").on("click", entregar);
     });
 
 
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
         $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
 
+            $("#email").attr('href', "mailto:kevin.smith@tufts.edu?subject=Suggestions&body=Test,Test,Test,Test");
+            $.mobile.changePage("#pagina-de-enviar");
             //map.on('locationfound', function(e){
             //    var marker = new L.Marker(e.latlng, {
             //        icon:	new L.NumberedDivIcon({number: '1'})
@@ -654,14 +685,21 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
             //  var marker3 = new L.Marker(new L.LatLng($('#latitude2').val(), $('#longitude2').val()), {
 
-            var marker3 = new L.Marker(new L.LatLng(42.41598, -71.1391), {
-                icon:	new L.NumberedDivIcon({number: '5', color: 'amarillo'})
-            });
-
-            marker3.addTo(mapa);
-
-            $.mobile.changePage("#pagina-inicial");
+            //var marker3 = new L.Marker(new L.LatLng(42.41598, -71.1391), {
+            //    icon:	new L.NumberedDivIcon({number: '5', color: 'amarillo'})
+            //});
+            //
+            //marker3.addTo(mapa);
+            //
+            //$.mobile.changePage("#pagina-inicial");
         });
+
+    });
+
+
+    $(document).on("pagecreate", "#pagina-de-enviar", function(e){
+
+
 
     });
 
