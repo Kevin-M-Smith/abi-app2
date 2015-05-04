@@ -17,7 +17,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
      *	crear listas de órdenes y familias
      ***************************************/
     var ordenes = manifiesto['ordenes'];
-    var familias = []
+    var familias = [];
     var mapa = "";
 
     L.NumberedDivIcon = L.Icon.extend({
@@ -568,14 +568,21 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         function entregar(e){
 
+            var fecha = ""
+            var hora = ""
+
             if($("#fecha").val().length == 0){
                 alert("Por favor, introduzca la fecha.");
                 return;
+            } else {
+                fecha = $("#fecha").val();
             }
 
             if($("#hora").val().length == 0){
                 alert("Por favor, introduzca la hora.");
                 return;
+            } else {
+                hora = $("#hora").val();
             }
 
             $("#pagina-de-encuesta-nueva").data("fecha", fecha);
@@ -699,9 +706,109 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
         $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
 
+            var datos = "mailto:";
 
-            $("#email").attr('href', "mailto:ejemplo.abi@gmail.com?subject=Suggestions&body=Test%09Test%09Test%0D");
+            if(localStorage.getItem('destino-email')){
+                datos += localStorage.getItem('destino-email');
+            } else {
+                datos += 'ejemplo.abi@gmail.com'
+            }
+
+            datos += '?subject=ABI&body='
+
+            datos += 'fecha,';
+            datos += 'hora,';
+            datos += 'lat,';
+            datos += 'lon,';
+            datos += 'pre,';
+            datos += 'abi,';
+            datos += 'cant,';
+
+            $.each(familias, function(i, familia){
+              datos += familia.nombre;
+              datos += ',';
+            })
+
+            datos += 'notas%0A%0A';
+
+            if($("#pagina-de-encuesta-nueva").data("fecha")){
+                datos += $("#pagina-de-encuesta-nueva").data("fecha");
+                datos += ',';
+            } else {
+                datos += '-9999'
+            }
+
+            if($("#pagina-de-encuesta-nueva").data("hora")){
+                datos += $("#pagina-de-encuesta-nueva").data("hora");
+                datos += ',';
+            } else {
+                datos += '-9999,';
+            }
+
+            if($("#pagina-de-encuesta-nueva").data("lat")){
+                datos += $("#pagina-de-encuesta-nueva").data("lat");
+                datos += ',';
+            } else {
+                datos += '-9999,';
+            }
+
+            if($("#pagina-de-encuesta-nueva").data("lon")){
+                datos += $("#pagina-de-encuesta-nueva").data("lon");
+                datos += ',';
+            } else {
+                datos += '-9999,';
+            }
+
+            if($("#pagina-de-encuesta-nueva").data("pre")){
+                datos += $("#pagina-de-encuesta-nueva").data("pre");
+                datos += ',';
+            } else {
+                datos += '-9999,';
+            }
+
+
+            var _familias = $(".nombre-de-familia");
+            var ABI = 0;
+            var cantidad = 0;
+
+            $.each(_familias, function(i, familia){
+                var _familia = $("#" + familia.id);
+                ABI += parseInt(_familia.data('puntos'));
+                cantidad += parseInt(_familia.data('cantidad'));
+            });
+
+            datos += ABI;
+            datos += ',';
+
+            datos += cantidad;
+            datos += ',';
+
+            $.each(familias, function(i, familia){
+
+                if($("#" + familia.nombre).length){
+                    datos += $("#" + familia.nombre).data('cantidad');
+                    datos += ',';
+                } else {
+                    datos += '0,';
+                }
+            });
+
+            datos += '"'
+            datos += $("#notas").val();
+            datos += '"'
+            datos += ',%0A';
+
+            console.log(datos);
+
+
+
+
+            $("#email").attr('href', datos);
             $.mobile.changePage("#pagina-de-enviar");
+
+
+
+
             //map.on('locationfound', function(e){
             //    var marker = new L.Marker(e.latlng, {
             //        icon:	new L.NumberedDivIcon({number: '1'})
