@@ -53,9 +53,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         createShadow: function () {
             return null;
         }
-    })
-
-
+    });
 
     $( document ).ready(function() {
         $(this).scrollTop(0);
@@ -151,6 +149,30 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 });
 
             });
+
+    });
+
+
+    /***************************************
+     *	preparar página 'configuracion'
+     ***************************************/
+    $(document).on('pagebeforeshow', "#pagina-de-configuracion", function() {
+
+        if(localStorage.getItem('destino-email')){
+            $("#destino-email").val(localStorage.getItem('destino-email'));
+        }
+
+        function entregar(e){
+            localStorage.setItem('destino-email', $("#destino-email").val())
+            $.mobile.changePage('#pagina-inicial');
+        }
+
+        $("#boton-pagina-de-configuracion-entregar").off();
+        $("#boton-pagina-de-configuracion-entregar").on('click', entregar);
+
+        $("#boton-pagina-de-configuracion-entregar-inferior").off();
+        $("#boton-pagina-de-configuracion-entregar-inferior").on('click', entregar);
+
 
     });
 
@@ -677,7 +699,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
         $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
 
-            $("#email").attr('href', "mailto:kevin.smith@tufts.edu?subject=Suggestions&body=Test,Test,Test,Test");
+
+            $("#email").attr('href', "mailto:ejemplo.abi@gmail.com?subject=Suggestions&body=Test%09Test%09Test%0D");
             $.mobile.changePage("#pagina-de-enviar");
             //map.on('locationfound', function(e){
             //    var marker = new L.Marker(e.latlng, {

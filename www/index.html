@@ -291,13 +291,16 @@
 <div data-role="page" id="pagina-de-configuracion">
     <div data-role="header">
         <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
-
-        <h1 style="overflow: visible;">Configuración</h1>
+        <h1 style="overflow: visible; text-align: center;">Config.</h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right" id="boton-pagina-de-configuracion-entregar">&nbsp;&nbsp;</a>
     </div>
 
     <div data-role="content">
-        <p>Esta página está vacía, pero incluirá opciones para configurar la aplicación.</p>
+        <div style="font-size: 1.2em">Dirección de destino.</div>
+        <input id="destino-email" type="text" value="ejemplo.abi@gmail.com"/>
     </div>
+    <a href="#" data-role="button" data-icon="check" id="boton-pagina-de-configuracion-entregar-inferior" style="font-size:1.25em; text-align:center;">Entregar</a>
+
 </div>
 
 <div data-role="page" id="pagina-de-encuesta-nueva">
