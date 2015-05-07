@@ -661,17 +661,32 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva-localizacion", function(e) {
 
         $("#get-gps").on("click", function(e) {
-            locate.locate(success, error);
+            navigator.geolocation.getCurrentPosition(success, error, {
+            enableHighAccuracy : true,
+    		timeout : 10000, // 10s
+    		maximumAge : 0});
         });
 
+
+
+
+
+
         function success(evt) {
-            $('#longitude2').val(evt.longitude);
-            $('#latitude2').val(evt.latitude);
-            $('#accuracy2').val(evt.accuracy);
+            $('#longitude2').val(evt.coords.longitude);
+            $('#latitude2').val(evt.coords.latitude);
+            $('#accuracy2').val(evt.coords.accuracy);
         }
 
         function error(evt) {
-            $('#result').html("Error retrieving location.");
+            var r = window.confirm("No se pudo obtener las coordenadas GPS. ¿Inténtalo de nuevo con más tiempo?")
+
+            if(r){
+                navigator.geolocation.getCurrentPosition(success, error, {
+                    enableHighAccuracy : true,
+                    timeout : 30000, // 30s
+                    maximumAge : 0});
+            }
         }
 
 
@@ -716,13 +731,13 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
             datos += '?subject=ABI&body='
 
-            datos += 'fecha,';
-            datos += 'hora,';
-            datos += 'lat,';
-            datos += 'lon,';
-            datos += 'pre,';
-            datos += 'abi,';
-            datos += 'cant,';
+            datos += 'Fecha,';
+            datos += 'Hora,';
+            datos += 'Latitud,';
+            datos += 'Longitud,';
+            datos += 'Precision,';
+            datos += 'ABI,';
+            datos += 'Cantidad,';
 
             $.each(familias, function(i, familia){
               datos += familia.nombre;

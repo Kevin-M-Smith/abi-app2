@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="Calc-ABI" version="1.1.1">
   <name>Calculadora de ABI</name>
   <description>Esta aplicación calcula el Índice biótico Andino.</description>
   <author email="kms2227@columbia.edu">Kevin Smith</author>
+=======
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="abi-app-dev" version="1.1.2">
+  <name>abi-app</name>
+  <description>Esta aplicación calcula el Índice biótico Andino.</description>
+  <author href="http://phonegap.com" email="kevin.smith@tufts.edu">Kevin Smith</author>
+>>>>>>> geo-fix
   <content src="index.html"/>
   <preference name="permissions" value="none"/>
   <preference name="orientation" value="default"/>
