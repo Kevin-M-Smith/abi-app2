@@ -736,7 +736,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             datos += 'Latitud,';
             datos += 'Longitud,';
             datos += 'Precision,';
-            datos += 'ABI,';
+            datos += 'IBA,';
             datos += 'Cantidad,';
 
             $.each(familias, function(i, familia){
@@ -744,7 +744,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
               datos += ',';
             })
 
-            datos += 'notas%0A%0A';
+            datos += 'Notas,';
+            datos += 'Versión%0A%0A'
 
             if($("#pagina-de-encuesta-nueva").data("fecha")){
                 datos += $("#pagina-de-encuesta-nueva").data("fecha");
@@ -808,10 +809,11 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 }
             });
 
-            datos += '"'
+            datos += '"';
             datos += $("#notas").val();
-            datos += '"'
-            datos += ',%0A';
+            datos += '",';
+            datos += '1.1.1';
+            datos += '%0A';
 
             console.log(datos);
 
