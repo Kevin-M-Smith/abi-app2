@@ -322,12 +322,12 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         var cantidad = $("#" + nombre).data("cantidad")
 
         if(typeof cantidad == 'undefined'){
-                cantidad = 1;
+                cantidad = 0;
+        } else {
+            $("#pagina-de-familia-total-cantidad").val(cantidad);
         }
 
         $("#encabezado-pagina-de-familia-total").text(nombre);
-
-        $("#pagina-de-familia-total-cantidad").val(cantidad);
 
 
         function entregar(e){
