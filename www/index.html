@@ -15,8 +15,8 @@
         }
 
         .ui-block-a img {
-            max-width: 200px;
-            min-width: 200px;
+            max-width: 150px;
+            min-width: 150px;
             max-height: 200px;
         }
 
@@ -102,7 +102,7 @@
 
 <div data-role="page" id="pagina-inicial">
     <div data-role="header" data-theme="a">
-        <h1>ABI</h1>
+        <h1 style="overflow: visible; text-align: center; margin: auto;">Índice Biotico Andino</h1>
     </div>
 
     <div data-role="content">
@@ -112,7 +112,7 @@
                 <!--<p style="white-space:normal;">Buscar en la calidad del agua cerca.</p></a></li>-->
             <li><a href="#pagina-de-encuesta-nueva"><img src="img/marcadores/insecto.png">
 
-                <p style="white-space:normal;">Tome una nueva encuesta.</p></a></li>
+                <p style="white-space:normal;">Realice una nueva evaluación de calidad de agua.</p></a></li>
             <li><a href="#pagina-de-ayuda"><img class="ui-li-icon" src="img/marcadores/ayuda.png">
 
                 <p style="white-space:normal;">Obtenga ayuda con esta aplicación.</p></a></li>
@@ -281,10 +281,12 @@
         <a href="#pagina-inicial" data-role="button" data-icon="home" data-iconpos="left">&nbsp;&nbsp;</a>
 
         <h1>Ayuda</h1>
+
     </div>
 
-    <div data-role="content">
-        <p>Esta página está vacía, pero incluirá instrucciones sobre el uso de la aplicación.</p>
+    <div data-role="content" style="background:#FFFACC;">
+        <img src="img/escala_puntaje.png" style="text-align: center; margin: auto; width: 180px;"/>
+        <img src="img/escala_colores.png" style="text-align: center; margin: auto; width: 180px;"/>
     </div>
 </div>
 
@@ -478,7 +480,7 @@
      <div data-role="content">
          <ul data-role="listview">
              <li data-icon="plus">
-                 <a href="#pagina-lista-de-ordenes" data-icon="plus">
+                 <a href="#pagina-rejilla-de-ordenes" data-icon="plus">
                      <h2><strong>Añadir una familia.</strong></h2></a>
              </li>
          </ul>
@@ -486,7 +488,7 @@
          <ul data-role="listview">
          <li style="padding-left:0px; padding-right:0px; background:#E6E6E6;">
              <table>
-             <tr><td style="width:12.5%; text-align:left;">&nbsp;ABI</td>
+             <tr><td style="width:12.5%; text-align:left;">&nbsp;IBA</td>
              <th style="width:58%; text-align:center;">Familia</th>
              <td style="width:12.5%; text-align:right;">(Cant.)</td>
              <td style="width:17%;"></td>
@@ -501,8 +503,8 @@
              <li style="padding-left:0px; padding-right:0px; background:#E6E6E6;">
                  <table width="100%">
                      <tr><td style="width:12.5%; text-align:left;" id="pagina-de-encuesta-nueva-familias-ABI"></td>
-                         <th style="width:58%; text-align:center;"><i>Total</i></th>
-                         <td style="width:12.5%; text-align:right;" id="pagina-de-encuesta-nueva-familias-cantidad"></td>
+                         <th style="width:58%; text-align:center;"><i>IBA Total</i></th>
+                         <td style="width:12.5%; text-align:right; visibility: hidden;" id="pagina-de-encuesta-nueva-familias-cantidad"></td>
                          <td style="width:17%;">&nbsp;</td>
                      </tr></table></li>
          </ul>
