@@ -323,6 +323,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         if(typeof cantidad == 'undefined'){
                 cantidad = 0;
+                $("#pagina-de-familia-total-cantidad").val("");
         } else {
             $("#pagina-de-familia-total-cantidad").val(cantidad);
         }
