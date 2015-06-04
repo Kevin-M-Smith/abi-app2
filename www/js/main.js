@@ -125,7 +125,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $( document ).on("pagecreate", "#pagina-rejilla-de-ordenes", function() {
         var _grid = '';
         $.each(ordenes, function(i, _orden) {
-                _grid += '<div class="ui-block-a"><a href="#" class="info-go" id="'
+                _grid += '<div class="ui-block-a icones"><a href="#" class="info-go" id="'
                 + i + '"><img src="img/icones/'
                 + _orden.nombre + '.png"></a></div>';
         });
@@ -323,6 +323,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
         if(typeof cantidad == 'undefined'){
                 cantidad = 0;
+                $("#pagina-de-familia-total-cantidad").val("");
         } else {
             $("#pagina-de-familia-total-cantidad").val(cantidad);
         }
