@@ -830,7 +830,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             datos += '"';
             datos += $("#notas").val();
             datos += '",';
-            datos += '1.1.3';
+            datos += '1.1.4';
             datos += '%0A';
 
             console.log(datos);
