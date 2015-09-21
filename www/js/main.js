@@ -739,6 +739,17 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
         $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
 
+
+            if($("#nombre-grupo").val().length == 0){
+                alert("Por favor, introduzca el nombre o el grupo.");
+                return;
+            }
+
+            if($("#lugar-de-monitoreo").val().length == 0){
+                alert("Por favor, introduzca el lugar de monitoreo.");
+                return;
+            }
+
             var datos = "mailto:";
 
             if(localStorage.getItem('destino-email')){
@@ -763,7 +774,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             })
 
             datos += 'Notas,';
-            datos += 'Versión%0A%0A'
+            datos += 'Nombre/Grupo,';
+            datos += 'Institución,';
+            datos += '"Lugar de Monitoreo",'
+            datos += 'Versión%0A%0A';
 
             if($("#pagina-de-encuesta-nueva").data("fecha")){
                 datos += $("#pagina-de-encuesta-nueva").data("fecha");
@@ -829,6 +843,12 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
             datos += '"';
             datos += $("#notas").val();
+            datos += '","';
+            datos += $("#nombre-grupo").val();
+            datos += '","';
+            datos += $("#institución").val();
+            datos += '","';
+            datos += $("#lugar-de-monitoreo").val();
             datos += '",';
             datos += '1.1.5';
             datos += '%0A';
