@@ -850,7 +850,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             datos += '","';
             datos += $("#lugar-de-monitoreo").val();
             datos += '",';
-            datos += '1.1.5';
+            datos += '1.1.6';
             datos += '%0A';
 
             console.log(datos);
