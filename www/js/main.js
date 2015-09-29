@@ -562,9 +562,55 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
 
     /***************************************
-     *    pagina-de-encuesta-nueva-fecha-y-hora
+     *    pagina-de-encuesta-nueva-nombre
      ***************************************/
 
+    $(document).on("pagebeforeshow", "#pagina-de-encuesta-nueva-nombre", function (e) {
+
+        if($("#pagina-de-encuesta-nueva").data("nombre-grupo")){
+            $("#nombre-grupo").val($("#pagina-de-encuesta-nueva").data("nombre-grupo"));
+        }
+
+        if($("#pagina-de-encuesta-nueva").data("Institución")){
+            $("#Institución").val($("#pagina-de-encuesta-nueva").data("Institución"));
+        }
+
+        function entregar(e){
+
+            var _nombregrupo = "";
+            var _institution = "";
+
+            if($("#nombre-grupo").val().length == 0){
+                alert("Por favor, introduzca el nombre / grupo.");
+                return;
+            } else {
+                _nombregrupo = $("#nombre-grupo").val();
+            }
+
+            if($("#Institución").val().length == 0){
+                alert("Por favor, introduzca la Institución.");
+                return;
+            } else {
+                _institution = $("#Institución").val();
+            }
+
+            $("#pagina-de-encuesta-nueva").data("nombre-grupo", _nombregrupo);
+            $("#pagina-de-encuesta-nueva").data("Institución", _institution);
+            $("#boton-pagina-de-encuesta-nueva-nombre").attr('data-theme', 'd');
+            $("#boton-pagina-de-encuesta-nueva-nombre-a").removeClass('ui-btn-c').addClass('ui-btn-d');
+            $.mobile.changePage("#pagina-de-encuesta-nueva");
+        }
+
+        $("#boton-pagina-de-encuesta-nueva-nombre-entregar-inferior").off();
+        $("#boton-pagina-de-encuesta-nueva-nombre-entregar-inferior").on("click", entregar);
+
+        $("#boton-pagina-de-encuesta-nueva-nombre-entregar").off();
+        $("#boton-pagina-de-encuesta-nueva-nombre-entregar").on("click", entregar);
+    });
+
+    /***************************************
+     *    pagina-de-encuesta-nueva-fecha-y-hora
+     ***************************************/
     $(document).on("pagebeforeshow", "#pagina-de-encuesta-nueva-fecha-y-hora", function (e) {
 
         if($("#pagina-de-encuesta-nueva").data("fecha")){
@@ -709,6 +755,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
             var _lat = $('#latitude2').val();
             var _lon = $('#longitude2').val();
+            var _lugar = $('#lugar-de-monitoreo').val();
 
             if(_lon.length == 0){
                 alert("Por favor, introduzca la longitud.");
@@ -720,11 +767,17 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 return;
             }
 
+            if(_lugar.length == 0){
+                alert("Por favor, introduzca el lugar de monitoreo.");
+                return;
+            }
+
             $("#boton-pagina-de-encuesta-nueva-localizacion").attr('data-theme', 'd');
             $("#boton-pagina-de-encuesta-nueva-localizacion-a").removeClass('ui-btn-c').addClass('ui-btn-d');
             $("#pagina-de-encuesta-nueva").data("lat", _lat);
             $("#pagina-de-encuesta-nueva").data("lon", _lon);
-            $("#pagina-de-encuseta-nueva").data("pre", $("#accuracy2").val())
+            $("#pagina-de-encuesta-nueva").data("pre", $("#accuracy2").val());
+            $("#pagina-de-encuesta-nueva").data("lugar", _lugar);
             $.mobile.changePage("#pagina-de-encuesta-nueva");
         }
 
@@ -741,12 +794,22 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
 
             if($("#nombre-grupo").val().length == 0){
-                alert("Por favor, introduzca el nombre o el grupo.");
+                alert("Por favor, asigne la propiedad.");
                 return;
             }
 
             if($("#lugar-de-monitoreo").val().length == 0){
-                alert("Por favor, introduzca el lugar de monitoreo.");
+                alert("Por favor, asigne la localización.");
+                return;
+            }
+
+            if($("#fecha").val().length == 0){
+                alert("Por favor, asigne la fecha y la hora.");
+                return;
+            }
+
+            if($(".nombre-de-familia").val().length == 0) {
+                alert("Por favor, asigne al menos una familia.");
                 return;
             }
 

@@ -328,6 +328,10 @@
                     href="#pagina-de-encuesta-nueva-localizacion">Asignar localización.</a></li>
             <li data-theme="c" id="boton-pagina-de-encuesta-nueva-familias"><a
                     style="text-shadow: none;"
+                    id="boton-pagina-de-encuesta-nueva-nombre-a" href="#pagina-de-encuesta-nueva-nombre">Asignar
+                propiedad.</a></li>
+            <li data-theme="c" id="boton-pagina-de-encuesta-nueva-familias"><a
+                    style="text-shadow: none;"
                     id="boton-pagina-de-encuesta-nueva-familias-a" href="#pagina-de-encuesta-nueva-familias">Asignar
                 familias.</a></li>
            <!--<li data-theme="c" id="boton-pagina-de-encuesta-nueva-foto"><a id="boton-pagina-de-encuesta-nueva-foto-a"-->
@@ -335,23 +339,8 @@
                 <!--una foto.</a></li>-->
         </ul>
 
-        <h5>(* campo obligatorio)</h5>
 
-        <li data-role="fieldcontain">
-            <label for="nombre-grupo">* Nombre/Grupo:</label>
-            <textarea name="nombre-grupo" id="nombre-grupo"></textarea>
-        </li>
-
-        <li data-role="fieldcontain">
-            <label for="institución">Institución:</label>
-            <textarea name="institución" id="Institución"></textarea>
-        </li>
-
-        <li data-role="fieldcontain">
-            <label for="lugar-de-monitoreo">* Lugar de Monitoreo:</label>
-            <textarea name="lugar-de-monitoreo" id="lugar-de-monitoreo"></textarea>
-        </li>
-
+        <br>
         <li data-role="fieldcontain">
             <label for="notas">Notas:</label>
             <textarea name="notas" id="notas"></textarea>
@@ -483,6 +472,10 @@
                  <label for="latitude">Latitud</label>
                  <input id="latitude2" name="latitude" type="number">
              </li>
+             <li data-role="fieldcontain">
+                 <label for="lugar-de-monitoreo">Lugar de Monitoreo:</label>
+                 <textarea name="lugar-de-monitoreo" id="lugar-de-monitoreo"></textarea>
+             </li>
          </ul>
      </div>
 
@@ -490,6 +483,35 @@
      <div style="visibility: hidden;"><input id="accuracy2" name="accuracy" type="number"/></div>
 
  </div>
+
+
+<div data-role="page" id="pagina-de-encuesta-nueva-nombre">
+    <div data-role="header">
+        <a href="#pagina-de-encuesta-nueva" data-role="button" data-icon="back" data-iconpos="left">&nbsp;&nbsp;</a>
+        <h1></h1>
+        <a href="#" data-role="button" data-icon="check" data-iconpos="right"
+           id="boton-pagina-de-encuesta-nueva-nombre-entregar">&nbsp;&nbsp;</a>
+    </div>
+
+    <div data-role="content">
+        <ul data-role="listview">
+            <li data-role="fieldcontain">
+                <label for="nombre-grupo">* Nombre/Grupo:</label>
+                <textarea name="nombre-grupo" id="nombre-grupo"></textarea>
+            </li>
+
+            <li data-role="fieldcontain">
+                <label for="institución">Institución:</label>
+                <textarea name="institución" id="Institución"></textarea>
+            </li>
+
+        </ul>
+    </div>
+
+    <a href="#" data-role="button" data-icon="check" id="boton-pagina-de-encuesta-nueva-nombre-entregar-inferior" style="font-size:1.25em; text-align:center;">Entregar</a>
+
+</div>
+
 
  <div data-role="page" id="pagina-de-encuesta-nueva-familias">
      <div data-role="header">
