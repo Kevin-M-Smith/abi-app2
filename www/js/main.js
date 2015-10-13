@@ -792,19 +792,19 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
     $(document).on("pagecreate", "#pagina-de-encuesta-nueva", function(e) {
         $("#boton-pagina-de-encuesta-nueva-entregar").on("click", function (e) {
 
-
-            if($("#nombre-grupo").val().length == 0){
-                alert("Por favor, asigne la propiedad.");
+            if($("#fecha").val().length == 0){
+                alert("Por favor, asigne la fecha y la hora.");
                 return;
             }
+
 
             if($("#lugar-de-monitoreo").val().length == 0){
                 alert("Por favor, asigne la localización.");
                 return;
             }
 
-            if($("#fecha").val().length == 0){
-                alert("Por favor, asigne la fecha y la hora.");
+            if($("#nombre-grupo").val().length == 0){
+                alert("Por favor, asigne la propiedad.");
                 return;
             }
 
