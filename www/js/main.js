@@ -163,7 +163,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
         }
 
         function entregar(e){
-            localStorage.setItem('destino-email', $("#destino-email").val())
+            localStorage.setItem('destino-email', $("#destino-email").val());
+            localStorage.setItem('PIN', $("#PIN").val());
             $.mobile.changePage('#pagina-inicial');
         }
 
@@ -813,9 +814,9 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 return;
             }
 
-            var datos = "mailto:";
+ //           var datos = "mailto:";
 
-            if(localStorage.getItem('destino-email')){
+  /*          if(localStorage.getItem('destino-email')){
                 datos += localStorage.getItem('destino-email');
             } else {
                 datos += 'ejemplo.abi@gmail.com'
@@ -875,7 +876,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 datos += ',';
             } else {
                 datos += '-9999,';
-            }
+            }*/
+
+            var email = localStorage.getItem('destino-email');
+            var pin = localStorage.getItem('PIN');
 
 
             var _familias = $(".nombre-de-familia");
@@ -888,7 +892,27 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 cantidad += parseInt(_familia.data('cantidad'));
             });
 
-            datos += ABI;
+            var fecha = 253402300800000 - Date.parse($("#pagina-de-encuesta-nueva").data("fecha"));
+
+            var lat = $("#pagina-de-encuesta-nueva").data("lat"); 
+            var lon = $("#pagina-de-encuesta-nueva").data("lon");
+
+            $.ajax({
+                type: "GET",
+                beforeSend: function(request){
+                    request.setRequestHeader("X-Email", email);
+                    request.setRequestHeader("X-PIN", pin);
+                    request.setRequestHeader("X-LAT", lat);
+                    request.setRequestHeader("X-LON", lon);
+                    request.setRequestHeader("X-GID", email);
+                    request.setRequestHeader("X-MID", fecha);
+                    request.setRequestHeader("X-ABI", ABI)
+                },
+                url: "https://qcpcaiadhuvgvyollans.azurewebsites.net/api/create"
+            });
+
+
+/*            datos += ABI;
             datos += ',';
 
             datos += cantidad;
@@ -916,7 +940,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             datos += '1.1.7';
             datos += '%0A';
 
-            console.log(datos);
+            console.log(datos);*/
 
 
 
