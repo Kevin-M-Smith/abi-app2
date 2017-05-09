@@ -897,6 +897,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             var lat = $("#pagina-de-encuesta-nueva").data("lat"); 
             var lon = $("#pagina-de-encuesta-nueva").data("lon");
 
+            var alertSent = function(){
+                alert("Sus datos han sido enviados.");
+            }
+
             $.ajax({
                 type: "GET",
                 beforeSend: function(request){
@@ -908,8 +912,14 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                     request.setRequestHeader("X-MID", fecha);
                     request.setRequestHeader("X-ABI", ABI)
                 },
-                url: "https://qcpcaiadhuvgvyollans.azurewebsites.net/api/create"
+                url: "https://qcpcaiadhuvgvyollans.azurewebsites.net/api/create",
+                success: alertSent
             });
+
+
+
+
+
 
 
 /*            datos += ABI;
@@ -945,7 +955,7 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
 
 
 
-            $("#email").attr('href', datos);
+//            $("#email").attr('href', datos);
             $.mobile.changePage("#pagina-de-enviar");
 
 
