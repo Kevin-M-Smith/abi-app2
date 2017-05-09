@@ -897,10 +897,8 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
             var lat = $("#pagina-de-encuesta-nueva").data("lat"); 
             var lon = $("#pagina-de-encuesta-nueva").data("lon");
 
-           alert("Sus datos han sido enviados!");
+           
             
-
-
             $.ajax({
                 type: "GET",
                 beforeSend: function(request){
@@ -914,64 +912,10 @@ require(['manifiesto', 'jquery', 'jquery.mobile', 'leaflet', 'wq/locate'], funct
                 },
                 url: "https://qcpcaiadhuvgvyollans.azurewebsites.net/api/create"
             });
-
+            
+            alert("Sus datos han sido enviados!");
             $.mobile.changePage('#pagina-inicial');
 
-
-/*            datos += ABI;
-            datos += ',';
-
-            datos += cantidad;
-            datos += ',';
-
-            $.each(familias, function(i, familia){
-
-                if($("#" + familia.nombre).length){
-                    datos += $("#" + familia.nombre).data('cantidad');
-                    datos += ',';
-                } else {
-                    datos += '0,';
-                }
-            });
-
-            datos += '"';
-            datos += $("#notas").val();
-            datos += '","';
-            datos += $("#nombre-grupo").val();
-            datos += '","';
-            datos += $("#institución").val();
-            datos += '","';
-            datos += $("#lugar-de-monitoreo").val();
-            datos += '",';
-            datos += '1.1.7';
-            datos += '%0A';
-
-            console.log(datos);*/
-
-
-
-
-
-
-
-
-
-            //map.on('locationfound', function(e){
-            //    var marker = new L.Marker(e.latlng, {
-            //        icon:	new L.NumberedDivIcon({number: '1'})
-            //    });
-            //    marker.addTo(map)
-            //});
-
-            //  var marker3 = new L.Marker(new L.LatLng($('#latitude2').val(), $('#longitude2').val()), {
-
-            //var marker3 = new L.Marker(new L.LatLng(42.41598, -71.1391), {
-            //    icon:	new L.NumberedDivIcon({number: '5', color: 'amarillo'})
-            //});
-            //
-            //marker3.addTo(mapa);
-            //
-            //$.mobile.changePage("#pagina-inicial");
         });
 
     });
